@@ -15,13 +15,14 @@ class MainBar extends Component {
         super(props);
         this.state = {
             isOpen: false,
-        }
-    }
+        };
+    };
+
     switchMenu = () => {
         this.setState((prevState) => {
             return { isOpen: !prevState.isOpen };
-        })
-    }
+        });
+    };
 
     render() {
         return (
@@ -42,8 +43,8 @@ class MainBar extends Component {
                 <MainMenu isOpen={this.state.isOpen} />
             </Fragment>
         );
-    }
-}
+    };
+};
 
 
 

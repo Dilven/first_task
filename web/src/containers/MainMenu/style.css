@@ -1,6 +1,17 @@
 .app-menu {
-  width: 300px;
+  max-width: 360px;
   height: 100%;
-  z-index: 9999; }
+  z-index: 9999;
+  background-color: #5165d4;
+  padding: 10px; }
   .app-menu--hidden {
     opacity: 0; }
+  .app-menu__list {
+    list-style-type: none; }
+  .app-menu-link {
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: inherit;
+    font-size: 14px; }
+    .app-menu-link--active {
+      font-weight: bold; }
