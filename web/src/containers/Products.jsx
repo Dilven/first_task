@@ -1,11 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux'
+import fetch from 'isomorphic-fetch';
+
+import ProductsList from '../components/ProductsList';
 
 class Products extends Component {
-    render(props) {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: [],
+            numberProducts: 0,
+        };
+    };
+
+    componentDidMount() {
+        fetch('http://localhost:7000/search')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ products: data.products, numberProducts: data.total })
+            });
+    };
+
+    render() {
         return (
-            <p>Products</p>
+            <Fragment>
+                <ProductsList products={this.state.products}/>
+                {this.state.numberProducts}
+            </Fragment>
         );
     };
 };
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    };
+};
 
-export default Products;
+const mapDispatchToProps = () => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
