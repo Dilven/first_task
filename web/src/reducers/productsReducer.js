@@ -4,7 +4,7 @@ const initialState = {
     products: ['123123', '22'],
 };
 
-const ProductsReducer = (state = initialState, action) => {
+const productsReducer = (state = initialState, action) => {
     switch(action.type) {
         case constants.PRODUCTS_GET_START: 
             return {...state}
@@ -13,4 +13,4 @@ const ProductsReducer = (state = initialState, action) => {
     }
 };
 
-export default ProductsReducer;
+export default productsReducer;

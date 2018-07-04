@@ -25,26 +25,26 @@ module.exports = function (app) {
 			}
 		  };
 
-		  if (filter && filter.category) {
-			query.bool.filter.push(
-				{term : { 'categoryId' : filter.category }}
-			);
-		  }
+		  // if (filter && filter.category) {
+			// query.bool.filter.push(
+			// 	{term : { 'categoryId' : filter.category }}
+			// );
+		  // }
 		  
-		  const size = 5;
 
 		  const from = !page ? 0 : (page === 0 ? 0 : size * page);
 
 		  const body = {
 			  query,
-			  size,
+			  size: 5,
 			  from
 		  }
 			return search('product', body)
 				.then(results => {
 					const total = results.hits.total;
+					const took = results.took;
 					const products = results.hits.hits.map(result => result._source);
-					return res.send({products, total})
+					return res.send({products, total, took})
 				})
 	});
 };

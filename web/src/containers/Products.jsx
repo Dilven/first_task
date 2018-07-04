@@ -11,6 +11,7 @@ class Products extends Component {
         this.state = {
             products: [],
             numberProducts: 0,
+            took: 0,
         };
     };
 
@@ -18,7 +19,7 @@ class Products extends Component {
         fetch('http://localhost:7000/search')
             .then(response => response.json())
             .then(data => {
-                this.setState({ products: data.products, numberProducts: data.total })
+                this.setState({ products: data.products, numberProducts: data.total, took: data.took * 0.001 })
             });
     };
 
@@ -26,7 +27,8 @@ class Products extends Component {
         return (
             <Fragment>
                 <ProductsList products={this.state.products}/>
-                {this.state.numberProducts}
+                {this.state.numberProducts}<br/>
+                {this.state.took}sec
             </Fragment>
         );
     };
