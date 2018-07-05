@@ -1,0 +1,26 @@
+.products-list {
+    list-style-type: none;
+    display: flex;
+    min-width: 200px;
+    padding: 10px;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.22);
+}
+
+.products-list__item {
+    width: 100px;
+    height: 50px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 2px;
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.22);
+    }
+}

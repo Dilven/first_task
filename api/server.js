@@ -6,7 +6,7 @@ const cors = require('cors');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT ||7000;
 
 const router = express.Router();
 

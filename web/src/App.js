@@ -8,10 +8,11 @@ import thunk from 'redux-thunk'
 import './App.css';
 import rootReducer from './reducers/index'
 
-import HomePage from './containers/HomePage';
-import Products from './containers/Products';
+import HomePage from './containers/HomePage/index';
+import Products from './containers/Products/index';
 import NotFound from './components/NotFound';
 import MainBar from './containers/MainBar';
+import MainMenu from './components/MainMenu';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -22,11 +23,13 @@ class App extends Component {
         <Router>
           <div>	
             <MainBar/>
-            <Switch>
-              <Route exact path="/" component={HomePage}/>
-              <Route path="/products" component={Products}/>
-              <Route component={NotFound}/>
-            </Switch>
+            <main className="main-content">
+              <Switch>
+                <Route exact path="/" component={HomePage}/>
+                <Route path="/products/:category" component={Products}/>
+                <Route component={NotFound}/>
+              </Switch>
+            </main>
           </div>
         </Router>
       </Provider>

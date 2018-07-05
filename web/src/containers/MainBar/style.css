@@ -7,3 +7,6 @@
 .menu-button {
   margin-left: -12;
   margin-right: 20; }
+
+.app__title {
+  text-transform: capitalize; }

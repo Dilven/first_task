@@ -2,7 +2,7 @@ const { search } = require('../esService');
 
 module.exports = function (app) {
 	app.get('/search', (req, res) => {
-		// localhost:4000/search?page=0&phrase=Book&filter[category]=0&filter[type]=book
+		// localhost:4000/search?page=0&phrase=Book&filter[category]=books&filter[type]=book
 
 		const { phrase, page, filter } = req.query;
 		const query = phrase ? {
@@ -24,19 +24,20 @@ module.exports = function (app) {
 			  filter: []
 			}
 		  };
-
-		  // if (filter && filter.category) {
-			// query.bool.filter.push(
-			// 	{term : { 'categoryId' : filter.category }}
-			// );
-		  // }
+			
+		  if (filter && filter.category) {
+			query.bool.filter.push(
+				{term : { 'categoryName' : filter.category }}
+			);
+			}
+			const size = 5;
 		  
 
 		  const from = !page ? 0 : (page === 0 ? 0 : size * page);
 
 		  const body = {
 			  query,
-			  size: 5,
+			  size,
 			  from
 		  }
 			return search('product', body)

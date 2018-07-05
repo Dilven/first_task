@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class HomePage extends Component {
-    render(props) {
+    render() {
         return (
             <p>HOME</p>
         );

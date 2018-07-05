@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
+import Route from 'react-router-dom';
 
-import ProductsList from '../components/ProductsList';
+import ProductsList from '../../components/ProductsList';
 
 class Products extends Component {
     
@@ -16,7 +17,14 @@ class Products extends Component {
     };
 
     componentDidMount() {
-        fetch('http://localhost:7000/search')
+        // const path = this.props.history.location.pathname.substr(1);
+        // let whatProducts = path.substr(path.lastIndexOf("/") + 1);
+
+        // whatProducts = whatProducts === 'products' ? ''
+        const page = 0;
+        const phrase = '';
+        const categoryName = 'books';
+        fetch(`http://localhost:7000/search?page=${page}&phrase=${phrase}&filter[category]=${categoryName}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data.products, numberProducts: data.total, took: data.took * 0.001 })
@@ -24,6 +32,8 @@ class Products extends Component {
     };
 
     render() {
+        console.log(this.props.match.params.category);
+        console.log(this.state.products)
         return (
             <Fragment>
                 <ProductsList products={this.state.products}/>
