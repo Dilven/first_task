@@ -12,7 +12,7 @@ import HomePage from './containers/HomePage/index';
 import Products from './containers/Products/index';
 import NotFound from './components/NotFound';
 import MainBar from './containers/MainBar';
-import MainMenu from './components/MainMenu';
+import MainMenu from './containers/MainMenu';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -27,7 +27,7 @@ class App extends Component {
             <main className="main-content">
               <Switch>
                 <Route exact path="/" component={HomePage}/>
-                <Route path="/products/:category" component={Products}/>
+                <Route exact path="/products/:category" component={Products}/>
                 <Route component={NotFound}/>
               </Switch>
             </main>

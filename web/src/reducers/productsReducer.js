@@ -1,16 +1,23 @@
 import * as constants from '../constants';
 
 const initialState = {
-    products: ['123123', '22'],
-};
+  products: [],
+  isLoading: false,
+  isError: false,
+  totalProducts: 0,
+  took: 0,
+}
 
-const productsReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case constants.PRODUCTS_GET_START: 
-            return {...state}
-        default:
-            return state;
-    }
+export default function productsReducer(state = initialState, action) {
+  switch (action.type) {
+    case constants.PRODUCTS_GET_START:
+      return { ...state, isLoading: true }
+    case constants.PRODUCTS_GET_SUCCESS:
+    console.log(action.payload.took)
+      return { ...state, isLoading: false, products: action.payload.data, totalProducts: action.payload.total, took: action.payload.took }
+    case constants.PRODUCTS_GET_ERROR:
+      return { ...state, isLoading: false, isError: true }
+    default:
+      return state;
+  }
 };
-
-export default productsReducer;

@@ -9,25 +9,25 @@ import './style.css';
 import { withRouter } from 'react-router'
 
 class MainBar extends Component {
-    render() {
-        const { pathname } = this.props.history.location;
-        const title = pathname.substr(1) || 'home';
+	render() {
+		const { pathname } = this.props.history.location;
+		const title = pathname.substr(1) || 'home';
 
-        return (
-            <Fragment>
-                <div className="main-bar">
-                    <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="title" color="inherit" className="main-bar__typography">
-                                <span className="app__title">{title}</span>
-                            </Typography>
-                            <Button color="inherit">Login</Button>
-                        </Toolbar>
-                    </AppBar>
-                </div>
-            </Fragment>
-        );
-    };
+		return (
+			<Fragment>
+				<div className="main-bar">
+					<AppBar position="static">
+						<Toolbar>
+							<Typography variant="title" color="inherit" className="main-bar__typography">
+								<span className="app__title">{title}</span>
+							</Typography>
+							<Button color="inherit">Login</Button>
+						</Toolbar>
+					</AppBar>
+				</div>
+			</Fragment>
+		);
+	};
 };
 
 
