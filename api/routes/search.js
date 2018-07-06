@@ -2,9 +2,8 @@ const { search } = require('../esService');
 
 module.exports = function (app) {
 	app.get('/search', (req, res) => {
-		// localhost:4000/search?page=0&phrase=Book&filter[category]=books&filter[type]=book
-
-		const { phrase, page, filter } = req.query;
+		// localhost:4000/search?page=0&phrase=Book&category=books&filter[type]=book
+		const { phrase, page, filter, category } = req.query;
 		const query = phrase ? {
 			bool : {
 			  must : {
@@ -25,13 +24,13 @@ module.exports = function (app) {
 			}
 		  };
 			
-		  if (filter && filter.category) {
+		  if (category) {
 			query.bool.filter.push(
-				{term : { 'categoryName' : filter.category }}
+				{ term : { "categoryName" : category }}
 			);
 			}
 			const size = 5;
-		  
+
 
 		  const from = !page ? 0 : (page === 0 ? 0 : size * page);
 
@@ -39,8 +38,9 @@ module.exports = function (app) {
 			  query,
 			  size,
 			  from
-		  }
-			return search('product', body)
+			}
+
+			return search('products', body)
 				.then(results => {
 					const total = results.hits.total;
 					const took = results.took;

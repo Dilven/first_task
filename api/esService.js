@@ -6,6 +6,7 @@ const esClient = new elasticsearch.Client({
 });
 
 const search = (index, body) => {
+
     return esClient.search({index: index, body: body})
 };
 
@@ -18,7 +19,16 @@ const indexData = (index, type, id, body) => {
 	});
 };
 
+const deleteData = (index, type, id) => {
+	return esClient.delete({
+	  index,
+	  type,
+	  id
+	});
+};
+
 module.exports = {
     search,
-    indexData
+	indexData,
+	deleteData
 }

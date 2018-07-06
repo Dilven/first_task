@@ -15,6 +15,8 @@ app.use('/', router);
 
 require('./routes/search')(app);
 require('./routes/indexData')(app);
+require('./routes/delete')(app);
+
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
