@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Route from 'react-router-dom';
-
 import ProductsList from '../../components/ProductsList';
 
 class Products extends Component {
@@ -16,18 +14,26 @@ class Products extends Component {
         };
     };
 
-    componentDidMount() {
-        
+    getProducts = () => {
         const page = 0;
         const phrase = '';
-        const categoryName = this.props.match.params.category
-        ;
+        const categoryName = this.props.match.params.category;
         fetch(`http://localhost:7000/search?page=${page}&phrase=${phrase}&category=${categoryName}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data.products, numberProducts: data.total, took: data.took * 0.001 })
             });
+    }
+
+    componentDidMount() {
+        this.getProducts();
     };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.categort !== this.props.match.params.category) {
+            this.getProducts();
+        }
+      }
 
     render() {
         return (

@@ -10,7 +10,7 @@ module.exports = (app) => {
         })
         .then(() => {
             return Promise.map(categoriesMock, category => {
-                return indexData('category', 'entries', category.id, category);
+                return indexData('categories', 'entries', category.id, category);
             })
         })
         .then(() => {

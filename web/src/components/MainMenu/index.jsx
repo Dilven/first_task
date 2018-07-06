@@ -7,6 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+import fetch from 'isomorphic-fetch';
 
 
 import('./style.css');
@@ -15,27 +16,48 @@ class MainMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            categories: [],
             moreProducts: true,
-            isOpen: false,
+            isOpen: true,
         };
     };
 
-    handlerToggleMenu = (isOpen) => {
-        this.setState({ isOpen })
+    toggleMenu = (isOpen) => {
+        this.setState({ isOpen });
     };
 
     showCategories = () => {
         this.setState(state => ({ moreProducts: !state.moreProducts }));
     };
 
+    renderCategoryLink = ({id ,name}) => {
+        return(
+            <NavLink key={id} className="app-menu__link" activeClassName="app-menu__link--active" to={`/products/${name}`}>
+                <ListItem button className="app-menu__item app-menu__item--nested">
+                    {name}
+                </ListItem>
+            </NavLink>
+        );  
+    };
+
+    componentDidMount() {
+        fetch(`http://localhost:7000/categories`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    categories: data.categories
+                })
+            });
+    };
+
     render() {
         return (
             <div>
-                <Drawer open={this.state.isOpen} onClose={this.props.toggleMenu.bind(this, false)} className="app-menu">
+                <Drawer open={this.state.isOpen} onClose={() => this.toggleMenu(false)} className="app-menu">
                     <div
                         tabIndex={0}
                         role="button"
-                        onKeyDown={this.props.toggleMenu.bind(this, false)}
+                        onKeyDown={() => this.toggleMenu(false)}
                     >
                         <List component="nav" className="app-menu__list">
                             <NavLink className="app-menu__link" activeClassName="app-menu__link--active" exact to="/">
@@ -50,11 +72,7 @@ class MainMenu extends Component {
                             </ListItem>
                             <Collapse in={this.state.moreProducts} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
-                                    <NavLink className="app-menu__link" activeClassName="app-menu__link--active" to="/products">
-                                        <ListItem button className="app-menu__item app-menu__item--nested">
-                                            All
-                                </ListItem>
-                                    </NavLink>
+                                   {this.state.categories.map(this.renderCategoryLink)} 
                                 </List>
                             </Collapse>
                             <Divider />

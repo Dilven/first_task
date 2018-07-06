@@ -23,6 +23,7 @@ class App extends Component {
         <Router>
           <div>	
             <MainBar/>
+            <MainMenu/>
             <main className="main-content">
               <Switch>
                 <Route exact path="/" component={HomePage}/>
