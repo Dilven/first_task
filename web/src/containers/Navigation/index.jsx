@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import MainMenu from '../MainMenu';
+import React, { Component, Fragment } from 'react'
+import MainMenu from '../../components/MainMenu';
 import MainBar from '../MainBar'
 
 
@@ -9,6 +9,10 @@ export default class Navigation extends Component {
     super(props);
     this.state = {
         categories: [
+          {
+            id: 0,
+            name: 'all'
+          },
           { 
             id: 1,
             name: 'home'
@@ -36,7 +40,7 @@ export default class Navigation extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <MainBar 
           toggleMenu={this.handlerToggleMenu}
         />
@@ -47,7 +51,7 @@ export default class Navigation extends Component {
           moreProducts={this.state.moreProducts}
           isOpen={this.state.isOpen}
         />
-      </div>
+      </Fragment>
     )
   }
 }

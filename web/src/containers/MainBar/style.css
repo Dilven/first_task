@@ -1,12 +1,14 @@
 .main-bar {
-  flex-grow: 1; }
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  margin-left: 360px;
+  width: calc(100% - 360px);
+  height: 65px; }
 
-.main-bar__typography {
-  flex: 1; }
-
-.menu-button {
-  margin-left: -12;
-  margin-right: 20; }
-
-.app__title {
+.site-title {
   text-transform: capitalize; }
+
+@media only screen and (max-width: 960px) {
+  .main-bar {
+    margin-left: 0px; } }

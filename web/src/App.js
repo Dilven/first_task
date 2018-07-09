@@ -21,11 +21,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div>	
+          <div className="app">	
             <Navigation />
             <main className="main-content">
               <Switch>
                 <Route exact path="/" component={HomePage}/>
+                <Route exact path="/products" component={Products}/>
                 <Route exact path="/products/:category" component={Products}/>
                 <Route component={NotFound}/>
               </Switch>

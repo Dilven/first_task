@@ -1,0 +1,45 @@
+@import 'shared.scss';
+$font-size-link: 14px;
+
+
+.app-menu{
+    
+  width: $menuWidth;
+
+  &__list {
+    width: $menuWidth;
+    list-style-type: none;
+    background-color: $secondBackgroundColor;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0px;
+  }
+
+  &__item {
+
+    color: #fff;
+
+    
+    &--nested {
+        padding-left: 50px;
+    }
+
+    &:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+  }
+
+  &__link {
+    display: block;
+    height: 100%;
+    text-transform: uppercase;
+    text-decoration: inherit;
+    font-size: $font-size-link;
+
+    &--active {
+        font-weight: bold;
+    }
+  }
+}

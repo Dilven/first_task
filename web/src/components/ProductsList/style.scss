@@ -1,7 +1,6 @@
 .list {
     list-style-type: none;
     display: flex;
-    justify-content: center;
     min-width: 200px;
     padding: 10px;
     flex-wrap: wrap;
@@ -10,7 +9,7 @@
     box-shadow: 0 14px 28px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.22);
 
     &__item {
-        width: 100px;
+        flex: 1;
         height: 75 px;
         margin: 5px;
         margin-top: 10px;
@@ -22,7 +21,7 @@
         transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     
         &:hover {
-            font-size: 20px;
+            font-weight: bold;
         }
     }
 

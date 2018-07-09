@@ -17,7 +17,7 @@ class Products extends Component {
 	};
 
 	componentDidMount() {
-		const categoryName = this.props.match.params.category;
+		const categoryName = this.props.match.params.category || "";
 		this.props.getProducts(categoryName);
 	};
 
@@ -36,9 +36,14 @@ class Products extends Component {
 	}
 
 	render() {
-		const redirect = this.state.categories.some(category => category === this.props.match.params.category)
+		let redirect = false;
+		if(this.props.match.params.category) {
+			redirect = this.state.categories.some(category => category === this.props.match.params.category)
+		} else {
+			redirect = true;
+		}
 		const { isLoading, products, took, totalProducts } = this.props;
-		
+
 		return (
 			<Fragment>
 				<FreeTextSearch 

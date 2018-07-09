@@ -1,16 +1,21 @@
+@import '../../shared.scss';
+@import 'shared.scss';
+
 .main-bar {
-    flex-grow: 1;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin-left: $menuWidth;
+    width: calc(100% - #{$menuWidth});
+    height: $mainBarHeight
 }
 
-.main-bar__typography {
-    flex: 1;
-}
-
-.menu-button {
-    margin-left: -12;
-    margin-right: 20;
-}
-
-.app__title {
+.site-title {
     text-transform: capitalize;
+}
+
+@media #{$medium} {
+    .main-bar {
+        margin-left: 0px;
+    }
 }
