@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-fetch';
 import ProductsList from '../../components/ProductsList';
 import CategoryNotFound from '../../components/CategoryNotFound';
 import FreeTextSearch from '../../components/FreeTextSearch';
@@ -11,26 +10,15 @@ class Products extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: [],
+			categories: ['books', 'home', 'clothes'],
 			searchPhrase: "",
-			page: 0
+			page: 0,
 		};
-	};
-
-	getCategories = () => {
-		fetch(`http://localhost:7000/categories`)
-			.then(response => response.json())
-			.then(data => {
-					this.setState({
-							categories: data.categories
-					});
-			});
 	};
 
 	componentDidMount() {
 		const categoryName = this.props.match.params.category;
 		this.props.getProducts(categoryName);
-		this.getCategories();
 	};
 
 	componentDidUpdate(prevProps) {
@@ -44,17 +32,31 @@ class Products extends Component {
 		const value = event.currentTarget.value;
 		const categoryName = this.props.match.params.category
 
-		this.setState({ [name]: value },this.props.getProducts(categoryName, 0, this.state.searchPhrase))
+		this.setState({ [name]: value }, this.props.getProducts(categoryName, this.state.page, this.state.searchPhrase))
 	}
 
 	render() {
-		console.log(this.props)
-		const redirect = this.state.categories.some(category => category.name === this.props.match.params.category)
+		const redirect = this.state.categories.some(category => category === this.props.match.params.category)
+		const { isLoading, products, took, totalProducts } = this.props;
+		
 		return (
 			<Fragment>
-				<FreeTextSearch value={this.state.searchPhrase} onChange={this.handlerChangeValue} name="searchPhrase" />
-				{redirect ? <ProductsList products={this.props.products} took={this.props.took} numberProducts={this.props.totalProducts} /> : <CategoryNotFound /> }
+				<FreeTextSearch 
+					value={this.state.searchPhrase} 
+					onChange={this.handlerChangeValue} 
+					name="searchPhrase" 
+				/>
 				
+				{redirect ? (
+					<ProductsList
+						products={products} 
+						took={took} 
+						numberProducts={totalProducts} 
+						isLoading={isLoading}
+					/>
+				) :  (
+					<CategoryNotFound />
+				)}
 			</Fragment>
 		);
 	};
@@ -63,7 +65,9 @@ const mapStateToProps = (state) => {
 	return {
 		products: state.products.products,
 		totalProducts: state.products.totalProducts,
-		took: state.products.took
+		took: state.products.took,
+		isLoading: state.products.isLoading,
+		error: state.products.isError,
 	};
 };
 

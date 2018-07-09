@@ -11,8 +11,8 @@ import rootReducer from './reducers/index'
 import HomePage from './containers/HomePage/index';
 import Products from './containers/Products/index';
 import NotFound from './components/NotFound';
-import MainBar from './containers/MainBar';
-import MainMenu from './containers/MainMenu';
+import Navigation from './containers/Navigation/index';
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -22,8 +22,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>	
-            <MainBar/>
-            <MainMenu/>
+            <Navigation />
             <main className="main-content">
               <Switch>
                 <Route exact path="/" component={HomePage}/>

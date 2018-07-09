@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,30 +7,14 @@ import Drawer from '@material-ui/core/Drawer';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
-import fetch from 'isomorphic-fetch';
+import Hidden from '@material-ui/core/Hidden';
 
 
 import('./style.css');
 
-class MainMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            categories: [],
-            moreProducts: true,
-            isOpen: true,
-        };
-    };
-
-    toggleMenu = (isOpen) => {
-        this.setState({ isOpen });
-    };
-
-    showCategories = () => {
-        this.setState(state => ({ moreProducts: !state.moreProducts }));
-    };
-
-    renderCategoryLink = ({id ,name}) => {
+const MainMenu = ({ toggleMenu, showCategories, categories, moreProducts, isOpen }) => {
+    
+    const renderCategoryLink = ({id ,name}) => {
         return(
             <NavLink key={id} className="app-menu__link" activeClassName="app-menu__link--active" to={`/products/${name}`}>
                 <ListItem button className="app-menu__item app-menu__item--nested">
@@ -40,48 +24,52 @@ class MainMenu extends Component {
         );  
     };
 
-    componentDidMount() {
-        fetch(`http://localhost:7000/categories`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    categories: data.categories
-                })
-            });
-    };
+    const menu = (
+        <List component="nav" className="app-menu__list">
+            <NavLink className="app-menu__link" activeClassName="app-menu__link--active" exact to="/">
+                <ListItem button className="app-menu__item">
+                    home
+                </ListItem>
+            </NavLink>
+            <Divider />
+            <ListItem className="app-menu__item" button onClick={showCategories.bind(this)}>
+                Products
+                {moreProducts ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={moreProducts} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                {categories.map(renderCategoryLink)} 
+                </List>
+            </Collapse>
+            <Divider />
+        </List>
+    )
 
-    render() {
-        return (
-            <div>
-                <Drawer open={this.state.isOpen} onClose={() => this.toggleMenu(false)} className="app-menu">
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        onKeyDown={() => this.toggleMenu(false)}
-                    >
-                        <List component="nav" className="app-menu__list">
-                            <NavLink className="app-menu__link" activeClassName="app-menu__link--active" exact to="/">
-                                <ListItem button className="app-menu__item">
-                                    home
-                                </ListItem>
-                            </NavLink>
-                            <Divider />
-                            <ListItem className="app-menu__item" button onClick={this.showCategories}>
-                                Products
-                                {this.state.moreProducts ? <ExpandLess /> : <ExpandMore />}
-                            </ListItem>
-                            <Collapse in={this.state.moreProducts} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                   {this.state.categories.map(this.renderCategoryLink)} 
-                                </List>
-                            </Collapse>
-                            <Divider />
-                        </List>
-                    </div>
+    return (
+        <Fragment>
+            <Hidden mdUp>
+                <Drawer
+                    variant="temporary"
+                    anchor="left"
+                    open={isOpen}
+                    onClose={toggleMenu.bind(this, false)}
+                    ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                    }}
+                >
+                    {menu}
                 </Drawer>
-            </div>
-        )
-    }
+            </Hidden>
+            <Hidden smDown implementation="css">
+                <Drawer 
+                    variant="permanent"
+                    open
+                >
+                    {menu}
+                </Drawer>
+            </Hidden>
+        </Fragment>
+    )
 }
 
 export default MainMenu;

@@ -15,7 +15,7 @@ module.exports = (app) => {
         })
         .then(() => {
             res.status(200).send({ message: 'succes'});
-        })
+        })  
     });
 };
 
