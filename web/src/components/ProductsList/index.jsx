@@ -11,7 +11,8 @@ import ('./style.css');
 const renderProduct = (product) => {
   return (
     <li className="list__item" key={product.id}>
-      <span>{product.name}</span> 
+      <span>Nazwa produktu: {product.name}</span><br/>
+      <span>Cena: {product.price}</span>
       <IconButton color="primary" aria-label="Add to shopping cart">
         <AddShoppingCartIcon />
       </IconButton>
@@ -25,19 +26,21 @@ const ProductsList = ({ products, took, numberProducts, isLoading, prevPage, nex
         {isLoading ? (
 						<CircularProgress />
 					) : (
-            <div className="container">
+            <div className="products">
               <ul className="list">
                 {products.map(product => renderProduct(product))}
               </ul>
               <span className="list__search-statistics"> Znaleziono: {numberProducts} produkty w {took}sec </span>
+              <div className="list__pagination">
+                <Button className="pagination__button" variant="contained" size="small" color="primary" onClick={prevPage.bind(this)}>
+                  prev
+                </Button>
+                <Button className="pagination__button" variant="contained" size="small" color="primary" onClick={nextPage.bind(this)}>
+                  next
+                </Button>
+              </div>
             </div>
         )}
-        <Button variant="contained" size="small" color="primary" onClick={prevPage.bind(this)}>
-          prev
-        </Button>
-        <Button variant="contained" size="small" color="primary" onClick={nextPage.bind(this)}>
-          next
-        </Button>
       </Fragment>
     );
 };

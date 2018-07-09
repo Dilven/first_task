@@ -3,7 +3,7 @@ const { search } = require('../esService');
 module.exports = function (app) {
 	app.get('/search', (req, res) => {
 		// localhost:4000/search?page=0&phrase=Book&category=books&filter[type]=book
-		const { phrase, page, filter, category } = req.query;
+		const { phrase, page, category } = req.query;
 		const query = phrase ? {
 			bool : {
 			  must : {
@@ -31,11 +31,11 @@ module.exports = function (app) {
 			}
 			const size = 5;
 
-
 		  const from = !page ? 0 : (page === 0 ? 0 : size * page);
-
+			const sort = { "name": { "order": "asc" }}
 		  const body = {
-			  query,
+				sort,
+				query,
 			  size,
 			  from
 			}

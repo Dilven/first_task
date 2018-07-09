@@ -13,6 +13,7 @@ class Products extends Component {
 		super(props);
 		this.state = {
 			categories: ['books', 'home', 'clothes'],
+			categoryName: "",
 			searchPhrase: "",
 			page: 0,
 		};
@@ -20,34 +21,46 @@ class Products extends Component {
 
 	componentDidMount() {
 		const categoryName = this.props.match.params.category || "";
+		this.setState({ categoryName })
 		this.props.getProducts(categoryName);
 	};
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.match.params.category !== this.props.match.params.category) {
-			const categoryName = this.props.match.params.category
+			const categoryName = this.props.match.params.category;
+			this.setState({ categoryName })
 			this.props.getProducts(categoryName);
-		}
-	}
+		};
+	};
 
 	handlerChangeValue = (name, event) => {
+		const { categoryName } = this.state
 		const value = event.currentTarget.value;
-		const categoryName = this.props.match.params.category
-
-		this.setState({ [name]: value }, this.props.getProducts(categoryName, this.state.page, this.state.searchPhrase))
-	}
+		
+		let page = 0;
+		if(value === "") {
+			page = this.state.page;
+		}
+		
+		this.setState({ [name]: value }, this.props.getProducts(categoryName, page, value))
+	};
 
 	nextPage = () => {
+		const { page, categoryName, searchPhrase } = this.state
+		const currentPage = page + 1;
 		this.setState((prevState) => {
 			return { page: prevState.page + 1 };
 		});
-		this.props.getProducts(this.state.categoryName, this.state.page, this.state.searchPhrase)
+		this.props.getProducts(categoryName, currentPage, searchPhrase)
 	}
 	prevPage = () => {
+		const { page, categoryName, searchPhrase } = this.state
+		const currentPage = page === 0 ? page : page - 1;
+
 		this.setState((prevState) => {
 			return { page: prevState.page === 0 ? 0 : - 1 };
 		});
-		this.props.getProducts(this.state.categoryName, this.state.page, this.state.searchPhrase)
+		this.props.getProducts(categoryName, currentPage, searchPhrase)
 	}
 
 	render() {
@@ -65,7 +78,6 @@ class Products extends Component {
 					onChange={this.handlerChangeValue} 
 					name="searchPhrase" 
 				/>
-				
 				{redirect ? (
 					<ProductsList
 						products={products} 

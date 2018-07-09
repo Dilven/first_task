@@ -6,9 +6,22 @@ const esClient = new elasticsearch.Client({
 });
 
 const search = (index, body) => {
-
     return esClient.search({index: index, body: body})
 };
+
+const initMapping = (index, type, body) => {  
+    return esClient.indices.putMapping({
+        index,
+        type,
+        body
+	}, (error, response) => {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log(response);
+		}
+	});
+}
 
 const indexData = (index, type, id, body) => {
 	return esClient.index({
@@ -30,5 +43,6 @@ const deleteData = (index, type, id) => {
 module.exports = {
     search,
 	indexData,
-	deleteData
+	deleteData,
+	initMapping
 }
