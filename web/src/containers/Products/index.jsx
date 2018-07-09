@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import ProductsList from '../../components/ProductsList';
 import CategoryNotFound from '../../components/CategoryNotFound';
 import FreeTextSearch from '../../components/FreeTextSearch';
@@ -35,6 +37,19 @@ class Products extends Component {
 		this.setState({ [name]: value }, this.props.getProducts(categoryName, this.state.page, this.state.searchPhrase))
 	}
 
+	nextPage = () => {
+		this.setState((prevState) => {
+			return { page: prevState.page + 1 };
+		});
+		this.props.getProducts(this.state.categoryName, this.state.page, this.state.searchPhrase)
+	}
+	prevPage = () => {
+		this.setState((prevState) => {
+			return { page: prevState.page === 0 ? 0 : - 1 };
+		});
+		this.props.getProducts(this.state.categoryName, this.state.page, this.state.searchPhrase)
+	}
+
 	render() {
 		let redirect = false;
 		if(this.props.match.params.category) {
@@ -43,7 +58,6 @@ class Products extends Component {
 			redirect = true;
 		}
 		const { isLoading, products, took, totalProducts } = this.props;
-
 		return (
 			<Fragment>
 				<FreeTextSearch 
@@ -58,6 +72,8 @@ class Products extends Component {
 						took={took} 
 						numberProducts={totalProducts} 
 						isLoading={isLoading}
+						prevPage={this.prevPage}
+						nextPage={this.nextPage}
 					/>
 				) :  (
 					<CategoryNotFound />
@@ -66,6 +82,14 @@ class Products extends Component {
 		);
 	};
 };
+Products.propTypes = {
+  products: PropTypes.array,
+	totalProducts: PropTypes.number,
+	took: PropTypes.number,
+	isLoading: PropTypes.bool,
+	error: PropTypes.bool
+}
+
 const mapStateToProps = (state) => {
 	return {
 		products: state.products.products,

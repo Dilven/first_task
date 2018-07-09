@@ -1,5 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+
 import ('./style.css');
 
 const FreeTextSearch = ({ onChange, value, name }) => {
@@ -16,5 +18,11 @@ const FreeTextSearch = ({ onChange, value, name }) => {
       />
   );
 };
+
+FreeTextSearch.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+}
 
 export default FreeTextSearch;

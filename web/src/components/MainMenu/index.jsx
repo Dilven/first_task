@@ -8,7 +8,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
-
+import PropTypes from 'prop-types';
 
 import('./style.css');
 
@@ -73,6 +73,14 @@ const MainMenu = ({ toggleMenu, showCategories, categories, moreProducts, isOpen
       </Hidden>
     </Fragment>
   )
+}
+
+MainMenu.propTypes = {
+  toggleMenu: PropTypes.func,
+  showCategories: PropTypes.func,
+  categories: PropTypes.array,
+  moreProducts: PropTypes.bool,
+  isOpen: PropTypes.bool
 }
 
 export default MainMenu;

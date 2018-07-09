@@ -13,7 +13,6 @@ export default function productsReducer(state = initialState, action) {
     case constants.PRODUCTS_GET_START:
       return { ...state, isLoading: true }
     case constants.PRODUCTS_GET_SUCCESS:
-    console.log(action.payload.took)
       return { ...state, isLoading: false, products: action.payload.data, totalProducts: action.payload.total, took: action.payload.took }
     case constants.PRODUCTS_GET_ERROR:
       return { ...state, isLoading: false, isError: true }

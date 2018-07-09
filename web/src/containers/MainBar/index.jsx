@@ -4,8 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import './style.css';
 import { withRouter } from 'react-router'
+import PropTypes from 'prop-types';
+
+import './style.css';
 
 class MainBar extends Component {
 
@@ -35,5 +37,9 @@ class MainBar extends Component {
   }
 } 
 
+MainBar.propTypes = {
+  toggleMenu: PropTypes.func,
+  history: PropTypes.object
+}
 
 export default withRouter(MainBar)
