@@ -13,19 +13,16 @@ class Products extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: ['books', 'home', 'clothes'],
+			categories: ['books', 'house', 'clothes'],
 			categoryName: "",
 			searchPhrase: "",
 			page: 0,
 			sortOrder: [ 
-				{ name:'ascending', value: 'asc'},
-				{ name:'descending', value: 'desc'}
+				{ name:'ascending price', value: 'asc:price'},
+				{ name:'descending price', value: 'desc:price'},
+				{ name:'ascending name', value: 'asc:name'},
+				{ name:'descending name', value: 'desc:name'}
 			],
-			sortType: [
-				{ name: 'price', value: 'price'},
-				{ name: 'name', value: 'name'}
-			],
-			order: '',
 			sort: ''
 		};
 	};
@@ -73,19 +70,20 @@ class Products extends Component {
 		const currentPage = page === 0 ? page : page - 1;
 
 		this.setState((prevState) => {
-			return { page: prevState.page === 0 ? 0 : - 1 };
+			return { page: prevState.page === 0 ? 0 : prevState.page - 1 };
 		});
 		this.props.getProducts(categoryName, currentPage, searchPhrase)
 	}
 
 	render() {
+
 		let redirect = false;
 		if(this.props.match.params.category) {
 			redirect = this.state.categories.some(category => category === this.props.match.params.category)
 		} else {
 			redirect = true;
 		}
-		const { isLoading, products, took, totalProducts } = this.props;
+		const { isLoading, products, took, totalProducts, numberProductsToDisplay } = this.props;
 		return (
 			<Fragment>
 				<FreeTextSearch 
@@ -95,12 +93,6 @@ class Products extends Component {
 				/>
 				<SimpleSelect 
 					data={this.state.sortOrder}
-					value={this.state.order}
-					onChange={this.handlerChangeSort}
-					name="order"
-				/>
-				<SimpleSelect 
-					data={this.state.sortType}
 					value={this.state.sort}
 					onChange={this.handlerChangeSort}
 					name="sort"
@@ -109,10 +101,12 @@ class Products extends Component {
 					<ProductsList
 						products={products} 
 						took={took} 
-						numberProducts={totalProducts} 
+						totalProducts={totalProducts} 
 						isLoading={isLoading}
+						page={this.state.page}
 						prevPage={this.prevPage}
 						nextPage={this.nextPage}
+						numberProducts={numberProductsToDisplay}
 					/>
 				) :  (
 					<CategoryNotFound />
@@ -121,12 +115,14 @@ class Products extends Component {
 		);
 	};
 };
+
 Products.propTypes = {
   products: PropTypes.array,
 	totalProducts: PropTypes.number,
 	took: PropTypes.number,
 	isLoading: PropTypes.bool,
-	error: PropTypes.bool
+	error: PropTypes.bool,
+	numberProductsToDisplay: PropTypes.number
 }
 
 const mapStateToProps = (state) => {
@@ -136,6 +132,7 @@ const mapStateToProps = (state) => {
 		took: state.products.took,
 		isLoading: state.products.isLoading,
 		error: state.products.isError,
+		numberProductsToDisplay: state.products.numberProductsToDisplay
 	};
 };
 

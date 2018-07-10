@@ -49,8 +49,9 @@ module.exports = function (app) {
 				.then(results => {
 					const total = results.hits.total;
 					const took = results.took;
+					const numberProductsToDisplay = results._shards.total;
 					const products = results.hits.hits.map(result => result._source);
-					return res.send({products, total, took})
+					return res.send({products, total, took, numberProductsToDisplay})
 				})
 	});
 };

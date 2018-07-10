@@ -7,13 +7,14 @@ export function getProductsStart() {
   };
 };
 
-export function getProductsSucccess(data) {
+export function getProductsSucccess({ products, total, took, numberProductsToDisplay}) {
   return {
     type: constants.PRODUCTS_GET_SUCCESS,
     payload: {
-      data: data.products,
-      total: data.total,
-      took: data.took * 0.001
+      data: products,
+      total,
+      took: took * 0.001,
+      numberProductsToDisplay
     }
   };
 };

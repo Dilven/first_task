@@ -122,121 +122,121 @@ module.exports = [
 	{
 		id: 20,
 		name: 'Table',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 21,
 		name: 'Door',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 22,
 		name: 'Window',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 23,
 		name: 'Bed',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 24,
 		name: 'Bath',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 25,
 		name: 'Tap',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 26,
 		name: 'Toilet',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 27,
 		name: 'Blanke',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 28,
 		name: 'Chair',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 29,
 		name: 'Lamp',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 30,
 		name: 'Rug',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 31,
 		name: 'Pillow',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 32,
 		name: 'Sheet',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 33,
 		name: 'Fireplace',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 34,
 		name: 'Sofa',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 35,
 		name: 'TV',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 36,
 		name: 'Bookcase',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 37,
 		name: 'Dressing table',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 38,
 		name: 'Fridge',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{
 		id: 39,
 		name: 'Oven',
-		categoryName: 'home',
+		categoryName: 'house',
 		price: 30.59
 	},
 	{

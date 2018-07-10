@@ -15,7 +15,7 @@ export default class Navigation extends Component {
           },
           { 
             id: 1,
-            name: 'home'
+            name: 'house'
           },
           { 
             id: 2,
