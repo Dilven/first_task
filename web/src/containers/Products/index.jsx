@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ProductsList from '../../components/ProductsList';
 import CategoryNotFound from '../../components/CategoryNotFound';
 import FreeTextSearch from '../../components/FreeTextSearch';
+import SimpleSelect from '../../components/SimpleSelect';
 import * as productsAction from '../../actions/products';
 
 class Products extends Component {
@@ -16,6 +17,16 @@ class Products extends Component {
 			categoryName: "",
 			searchPhrase: "",
 			page: 0,
+			sortOrder: [ 
+				{ name:'ascending', value: 'asc'},
+				{ name:'descending', value: 'desc'}
+			],
+			sortType: [
+				{ name: 'price', value: 'price'},
+				{ name: 'name', value: 'name'}
+			],
+			order: '',
+			sort: ''
 		};
 	};
 
@@ -32,6 +43,10 @@ class Products extends Component {
 			this.props.getProducts(categoryName);
 		};
 	};
+
+	handlerChangeSort = event => {
+		this.setState({ [event.target.name]: event.target.value });
+	}
 
 	handlerChangeValue = (name, event) => {
 		const { categoryName } = this.state
@@ -77,6 +92,18 @@ class Products extends Component {
 					value={this.state.searchPhrase} 
 					onChange={this.handlerChangeValue} 
 					name="searchPhrase" 
+				/>
+				<SimpleSelect 
+					data={this.state.sortOrder}
+					value={this.state.order}
+					onChange={this.handlerChangeSort}
+					name="order"
+				/>
+				<SimpleSelect 
+					data={this.state.sortType}
+					value={this.state.sort}
+					onChange={this.handlerChangeSort}
+					name="sort"
 				/>
 				{redirect ? (
 					<ProductsList

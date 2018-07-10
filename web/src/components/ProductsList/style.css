@@ -27,8 +27,6 @@
     border-radius: 2px;
     display: inline-block;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-    .list__item:hover {
-      font-weight: bold; }
   .list__search-statistics {
     align-self: flex-end;
     padding: 5px;

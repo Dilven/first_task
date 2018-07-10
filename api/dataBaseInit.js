@@ -23,12 +23,15 @@ initMapping('products', 'entries', {
   properties: {
     name: { 
       'type': "text",
-      "fielddata": true,
+      "fielddata": true
       
     },
     categoryName: { 
       'type': "text",
       "fielddata": true
     },
+    price: {
+      'type': 'float'
+    }
   }
 });
