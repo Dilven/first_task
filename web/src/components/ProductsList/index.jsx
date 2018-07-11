@@ -7,8 +7,7 @@ import Pagination from '../Pagination';
 
 import ('./style.css');
 
-const ProductsList = ({ products, took, totalProducts, numberProducts, isLoading, page, prevPage, nextPage }) => {
-  const currentPage = page + 1;
+const ProductsList = ({ products, took, totalProducts, productsPerPage, isLoading, page, handleChangePage, handleChangeRowsPerPage }) => {
   return (
     <Fragment>
         {isLoading ? (
@@ -20,10 +19,10 @@ const ProductsList = ({ products, took, totalProducts, numberProducts, isLoading
             </ul>
             <span className="list__search-statistics"> Found: {totalProducts} results in {took}sec </span>
             <Pagination 
-              currentPage={currentPage}
-              prevPage={prevPage}
-              nextPage={nextPage}
-              numberProducts={numberProducts}
+              page={page}
+              onChangePage={handleChangePage}
+              changeRowsPerPage={handleChangeRowsPerPage}
+              productsPerPage={productsPerPage}
               totalProducts={totalProducts}
             />
           </div>
@@ -37,8 +36,7 @@ ProductsList.propTypes = {
   took: PropTypes.number,
   totalProducts: PropTypes.number,
   isLoading: PropTypes.bool,
-  prevPage: PropTypes.func,
-  nextPage: PropTypes.func
+  handleChangePage: PropTypes.func
 }
 
 export default ProductsList;

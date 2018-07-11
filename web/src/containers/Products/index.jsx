@@ -17,6 +17,7 @@ class Products extends Component {
 			categoryName: "",
 			searchPhrase: "",
 			page: 0,
+			productsPerPage: 5,
 			sortOrder: [ 
 				{ name:'ascending price', value: 'asc:price'},
 				{ name:'descending price', value: 'desc:price'},
@@ -30,14 +31,20 @@ class Products extends Component {
 	componentDidMount() {
 		const categoryName = this.props.match.params.category || "";
 		this.setState({ categoryName })
-		this.props.getProducts(categoryName);
+		const filtr = {
+			categoryName
+		}
+		this.props.getProducts(filtr);
 	};
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.match.params.category !== this.props.match.params.category) {
 			const categoryName = this.props.match.params.category;
 			this.setState({ categoryName })
-			this.props.getProducts(categoryName);
+			const filtr = {
+				categoryName
+			}
+			this.props.getProducts(filtr);
 		};
 	};
 
@@ -53,37 +60,47 @@ class Products extends Component {
 		if(value === "") {
 			page = this.state.page;
 		}
+
+		const filtr = {
+			categoryName,
+			page,
+			value
+		}
 		
-		this.setState({ [name]: value }, this.props.getProducts(categoryName, page, value))
+		this.setState({ [name]: value }, this.props.getProducts(filtr))
 	};
 
-	nextPage = () => {
-		const { page, categoryName, searchPhrase } = this.state
-		const currentPage = page + 1;
-		this.setState((prevState) => {
-			return { page: prevState.page + 1 };
-		});
-		this.props.getProducts(categoryName, currentPage, searchPhrase)
+	handleChangePage = (event, page) => {
+		const { categoryName, searchPhrase } = this.state
+		this.setState({ page });
+		const filtr = {
+			categoryName,
+			page,
+			searchPhrase
+		}
+		this.props.getProducts(filtr)
 	}
-	prevPage = () => {
-		const { page, categoryName, searchPhrase } = this.state
-		const currentPage = page === 0 ? page : page - 1;
-
-		this.setState((prevState) => {
-			return { page: prevState.page === 0 ? 0 : prevState.page - 1 };
-		});
-		this.props.getProducts(categoryName, currentPage, searchPhrase)
-	}
+	handleChangeRowsPerPage = event => {
+		const value = event.target.value;
+		const {categoryName, page, searchPhrase} = this.state;
+		this.setState({productsPerPage: value});
+		const filtr = {
+			categoryName,
+			page,
+			searchPhrase,
+			productsPerPage: value
+		}
+		this.props.getProducts(filtr)
+  };
 
 	render() {
-
 		let redirect = false;
 		if(this.props.match.params.category) {
 			redirect = this.state.categories.some(category => category === this.props.match.params.category)
 		} else {
 			redirect = true;
 		}
-		const { isLoading, products, took, totalProducts, numberProductsToDisplay } = this.props;
+		const { isLoading, products, took, totalProducts } = this.props;
 		return (
 			<Fragment>
 				<FreeTextSearch 
@@ -104,9 +121,9 @@ class Products extends Component {
 						totalProducts={totalProducts} 
 						isLoading={isLoading}
 						page={this.state.page}
-						prevPage={this.prevPage}
-						nextPage={this.nextPage}
-						numberProducts={numberProductsToDisplay}
+						handleChangePage={this.handleChangePage}
+						handleChangeRowsPerPage={this.handleChangeRowsPerPage}
+						productsPerPage={this.state.productsPerPage}
 					/>
 				) :  (
 					<CategoryNotFound />

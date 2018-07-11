@@ -1,6 +1,8 @@
 const esQueryBuilder = (req) => {
   let { 
-    phrase, page = 0,
+    phrase, 
+    page = 0,
+    size = 5,
     category,
     sort: sortFromQuery = {}
   } = req.query;
@@ -30,7 +32,7 @@ const esQueryBuilder = (req) => {
     { term : { "categoryName" : category }}
   );
   }
-  const size = 5;
+  
   page = parseInt(page);
   const from = !page ? 0 : (page === 0 ? 0 : size * page);
   const sort = { "name": { "order": "asc" }}

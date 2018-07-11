@@ -1,28 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import TablePagination from '@material-ui/core/TablePagination';
 
 import ('./style.css');
 
-const Pagination = ({ currentPage, prevPage, nextPage, numberProducts, totalProducts}) => {
+const Pagination = ({ page, onChangePage,changeRowsPerPage, productsPerPage, totalProducts}) => {
   return (
-    <div className="pagination">
-      page: {currentPage}
-      {currentPage !== 1 && <Button className="pagination__button" variant="contained" size="small" color="primary" onClick={prevPage.bind(this)}>
-        prev
-      </Button>}
-      {currentPage * numberProducts !== totalProducts && <Button className="pagination__button" variant="contained" size="small" color="primary" onClick={nextPage.bind(this)}>
-        next
-      </Button>}
-    </div>
-  )
+    <TablePagination
+      component="div"
+      count={totalProducts}
+      rowsPerPage={productsPerPage}
+      page={page}
+      backIconButtonProps={{
+        'aria-label': 'Previous Page',
+      }}
+      nextIconButtonProps={{
+        'aria-label': 'Next Page',
+      }}
+      onChangePage={onChangePage}
+      onChangeRowsPerPage={changeRowsPerPage}
+    />
+  );
 };
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number,
-  prevPage: PropTypes.func,
-  nextPage: PropTypes.func,
-  numberProducts: PropTypes.number,
+  page: PropTypes.number,
+  onChangePage: PropTypes.func,
+  changeRowsPerPage: PropTypes.func,
+  productsPerPage: PropTypes.number,
   totalProducts: PropTypes.number
 };
 
