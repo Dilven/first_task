@@ -15,11 +15,6 @@
     border-radius: 2px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.22);
 
-    &__pagination {
-        align-self: flex-end;
-        margin-right: 5px;
-    }
-
     &__item {
         flex: 1;
         height: 75 px;
@@ -31,10 +26,6 @@
         border-radius: 2px;
         display: inline-block;
         transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    
-        // &:hover {
-        //     font-weight: bold;
-        // }
     }
 
     &__search-statistics {
@@ -45,6 +36,3 @@
     }
 }
 
-.pagination__button {
-    margin: 5px 2px 5px 2px;
-}
