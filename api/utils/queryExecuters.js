@@ -8,9 +8,10 @@ const executeEsQuery = (body) => {
     const numberProductsToDisplay = results._shards.total;
     const products = results.hits.hits.map(result => result._source);
     return({products, total, took, numberProductsToDisplay})
-  })
-}
+  });
+};
 
 module.exports = { 
   executeEsQuery,
-}
+  //executePostgresQuery
+};
