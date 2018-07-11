@@ -2,8 +2,8 @@ const { esQueryBuilder } = require('../utils/queryBuilder')
 const { executeEsQuery} = require('../utils/queryExecuters')
 
 module.exports = function (app) {
-	app.get('/search', (req, res) => {
-		// localhost:4000/search?page=0&phrase=Book&category=books&filter[type]=book
+	app.get('/products', (req, res) => {
+		// localhost:4000/products?page=0&phrase=Book&category=books&filter[type]=book
 		if(process.env.DB_TYPE === "ES") {
 			const query = esQueryBuilder(req);
 			return executeEsQuery(query)

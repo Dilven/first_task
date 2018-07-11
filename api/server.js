@@ -16,10 +16,7 @@ const router = express.Router();
 app.use(cors());
 app.use('/', router);
 
-require('./routes/search')(app);
-require('./routes/searchCategories')(app);
-
-
+require('./routes/products')(app);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);

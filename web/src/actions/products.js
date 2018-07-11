@@ -31,7 +31,7 @@ export function getProductsError(error) {
 export function getProducts( categoryName = "", page = 0, phrase = "") {
   return (dispatch) => {
     dispatch(getProductsStart());
-    fetch(`http://localhost:7000/search?page=${page}&phrase=${phrase}&category=${categoryName}`)
+    fetch(`http://localhost:7000/products?page=${page}&phrase=${phrase}&category=${categoryName}`)
 			.then(response => response.json())
       .then(data => {
         dispatch(getProductsSucccess(data));
