@@ -1,57 +1,19 @@
-const { search } = require('../esService');
+const { esQueryBuilder } = require('../utils/queryBuilder')
+const { executeEsQuery} = require('../utils/queryExecuters')
 
 module.exports = function (app) {
 	app.get('/search', (req, res) => {
 		// localhost:4000/search?page=0&phrase=Book&category=books&filter[type]=book
-		let { 
-			phrase, page = 0,
-			category,
-			sort: sortFromQuery = {}
-		} = req.query;
-
-		const query = phrase ? {
-			bool : {
-			  must : {
-				multi_match : {
-				  query : phrase,
-				  fields : [ 'name' ],
-				  fuzziness : 2
-				}
-			  },
-			  filter: []
-			}
-		  } : {
-			bool : {
-			  must : {
-				match_all : {}
-			  },
-			  filter: []
-			}
-		  };
-			
-		  if (category) {
-			query.bool.filter.push(
-				{ term : { "categoryName" : category }}
-			);
-			}
-			const size = 5;
-			page = parseInt(page);
-			const from = !page ? 0 : (page === 0 ? 0 : size * page);
-			const sort = { "name": { "order": "asc" }}
-		  const body = {
-				sort,
-				query,
-			  size,
-			  from
-			}
-
-			return search('products', body)
-				.then(results => {
-					const total = results.hits.total;
-					const took = results.took;
-					const numberProductsToDisplay = results._shards.total;
-					const products = results.hits.hits.map(result => result._source);
-					return res.send({products, total, took, numberProductsToDisplay})
-				})
+		if(process.env.DB_TYPE === "ES") {
+			const query = esQueryBuilder(req);
+			return executeEsQuery(query)
+				.then((results) => {
+					return res.status(200).send(results);
+				});
+		} else if (process.env.DB_TYPE === 'PG') {
+      console.log('postgres')
+    } else {
+      return res.status(500).send('Database error');
+    }
 	});
 };

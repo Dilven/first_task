@@ -295,7 +295,7 @@ module.exports = [
 	},
 	{
 		id: 49,
-		name: 'Lśnienie',
+		name: 'Cap',
 		categoryName: 'clothes',
 		price: 30.59
 	},

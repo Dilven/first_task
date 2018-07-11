@@ -32,17 +32,8 @@ const indexData = (index, type, id, body) => {
 	});
 };
 
-const deleteData = (index, type, id) => {
-	return esClient.delete({
-	  index,
-	  type,
-	  id
-	});
-};
-
 module.exports = {
     search,
 	indexData,
-	deleteData,
 	initMapping
 }
