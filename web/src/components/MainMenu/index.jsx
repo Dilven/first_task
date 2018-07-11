@@ -76,11 +76,11 @@ const MainMenu = ({ toggleMenu, showCategories, categories, moreProducts, isOpen
 }
 
 MainMenu.propTypes = {
-  toggleMenu: PropTypes.func,
-  showCategories: PropTypes.func,
-  categories: PropTypes.array,
-  moreProducts: PropTypes.bool,
-  isOpen: PropTypes.bool
+  toggleMenu: PropTypes.func.isRequired,
+  showCategories: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  moreProducts: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired
 }
 
 export default MainMenu;

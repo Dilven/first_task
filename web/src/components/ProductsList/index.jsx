@@ -32,11 +32,13 @@ const ProductsList = ({ products, took, totalProducts, productsPerPage, isLoadin
 };
 
 ProductsList.propTypes = {
-  products: PropTypes.array,
-  took: PropTypes.number,
-  totalProducts: PropTypes.number,
-  isLoading: PropTypes.bool,
-  handleChangePage: PropTypes.func
+  products: PropTypes.array.isRequired,
+  took: PropTypes.number.isRequired,
+  totalProducts: PropTypes.number.isRequired,
+  productsPerPage: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  handleChangeRowsPerPage: PropTypes.func.isRequired
 }
 
 export default ProductsList;

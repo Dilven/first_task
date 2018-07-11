@@ -33,10 +33,10 @@ const SimpleSelect = ({ data, name, value, onChange }) => {
 }
 
 SimpleSelect.propTypes = {
-  data: PropTypes.array,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  name: PropTypes.string
+  data: PropTypes.array.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired
 }
 
 export default SimpleSelect;

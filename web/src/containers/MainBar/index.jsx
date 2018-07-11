@@ -39,8 +39,8 @@ class MainBar extends Component {
 } 
 
 MainBar.propTypes = {
-  toggleMenu: PropTypes.func,
-  history: PropTypes.object
+  toggleMenu: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default withRouter(MainBar)

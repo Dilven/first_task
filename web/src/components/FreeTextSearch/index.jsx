@@ -20,9 +20,9 @@ const FreeTextSearch = ({ onChange, value, name }) => {
 };
 
 FreeTextSearch.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default FreeTextSearch;

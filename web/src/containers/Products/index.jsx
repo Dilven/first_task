@@ -53,30 +53,27 @@ class Products extends Component {
 	}
 
 	handlerChangeValue = (name, event) => {
-		const { categoryName } = this.state
+		const { categoryName, productsPerPage } = this.state
 		const value = event.currentTarget.value;
-		
-		let page = 0;
-		if(value === "") {
-			page = this.state.page;
-		}
-
+		this.setState({ page: 0})
 		const filtr = {
 			categoryName,
-			page,
-			value
+			productsPerPage,
+			page: 0,
+			searchPhrase: value
 		}
 		
 		this.setState({ [name]: value }, this.props.getProducts(filtr))
 	};
 
 	handleChangePage = (event, page) => {
-		const { categoryName, searchPhrase } = this.state
+		const { categoryName, searchPhrase, productsPerPage } = this.state
 		this.setState({ page });
 		const filtr = {
 			categoryName,
 			page,
-			searchPhrase
+			searchPhrase,
+			productsPerPage
 		}
 		this.props.getProducts(filtr)
 	}
@@ -134,12 +131,12 @@ class Products extends Component {
 };
 
 Products.propTypes = {
-  products: PropTypes.array,
-	totalProducts: PropTypes.number,
-	took: PropTypes.number,
-	isLoading: PropTypes.bool,
-	error: PropTypes.bool,
-	numberProductsToDisplay: PropTypes.number
+  products: PropTypes.array.isRequired,
+	totalProducts: PropTypes.number.isRequired,
+	took: PropTypes.number.isRequired,
+	isLoading: PropTypes.bool.isRequired,
+	error: PropTypes.bool.isRequired,
+	numberProductsToDisplay: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => {
