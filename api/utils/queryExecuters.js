@@ -1,4 +1,6 @@
 const { search } = require('../esService');
+const { Client } = require('pg')
+
 
 const executeEsQuery = (body) => {
   return search('products', body)
@@ -11,7 +13,25 @@ const executeEsQuery = (body) => {
   });
 };
 
+const executePgQuery = (query) => {
+  
+  const connectionString = 'postgresql://dilven:password@localhost/shop';
+
+  const client = new Client({
+    connectionString: connectionString,
+  })
+
+  return client.connect()
+    .then(() => {
+      return client.query(query);
+    })
+    .then((results) => {
+      client.end();
+      return results;
+    })
+}
+
 module.exports = { 
   executeEsQuery,
-  //executePostgresQuery
+  executePgQuery
 };

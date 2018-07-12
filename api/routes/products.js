@@ -1,5 +1,5 @@
-const { esQueryBuilder } = require('../utils/queryBuilder')
-const { executeEsQuery} = require('../utils/queryExecuters')
+const { esQueryBuilder, pgQueryBuilder } = require('../utils/queryBuilder');
+const { executeEsQuery, executePgQuery } = require('../utils/queryExecuters');
 
 module.exports = function (app) {
 	app.get('/products', (req, res) => {
@@ -11,7 +11,12 @@ module.exports = function (app) {
 					return res.status(200).send(results);
 				});
 		} else if (process.env.DB_TYPE === 'PG') {
-      console.log('postgres')
+			const query = pgQueryBuilder(req);
+      return executePgQuery(query)
+        .then((results) => {
+          return res.status(200).send({products: results.rows});
+				})
+					
     } else {
       return res.status(500).send('Database error');
     }
