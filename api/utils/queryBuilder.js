@@ -8,7 +8,7 @@ const esQueryBuilder = (req) => {
   } = req.query;
 
   const query = phrase ? {
-    bool : {
+    bool : { 
       must : {
       multi_match : {
         query : phrase,
@@ -26,7 +26,7 @@ const esQueryBuilder = (req) => {
       filter: []
     }
     };
-    
+    console.log(category)
   if (category) {
   query.bool.filter.push(
     { term : { "category_name" : category }}
@@ -47,29 +47,36 @@ const esQueryBuilder = (req) => {
 }
 
 const pgQueryBuilder = (req) => {
-  // const { phrase, page, filter } = req.query;
+  // /products?phrase=&page=&
+  let { 
+    phrase, 
+    page = 0,
+    size = 5 ,
+    category,
+    sort: sortFromQuery = {}
+  } = req.query;
+  // console.log(req.query)
 
-  const size = 1; // it should be from req.query
 
   let sql = '';
 
   sql += 'SELECT * FROM products';
 
   // if (phrase) {
-  //   sql += `name LIKE '${phrase}' `;
+  //   sql += ` name LIKE '${phrase}' `;
   // }
 
   // if (filter && filter.category) {
-  //   sql += `categoryId=${filter.category} `;
+  //   sql += ` categoryId=${filter.category} `;
   // }
 
-  // if (page) {
-  //   sql = `OFFSET ${size * page} `;
-  // }
+  if (page) {
+    sql += ` OFFSET ${size * page} `;
+  }
 
-  // if (size) {
-  //   sql = `LIMIT ${size}`;
-  // }
+  if (size) {
+    sql += ` LIMIT ${size}`;
+  }
 
   return sql;
 }

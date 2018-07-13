@@ -1,7 +1,6 @@
 const { search } = require('../esService');
 const { Client } = require('pg')
 
-
 const executeEsQuery = (body) => {
   return search('products', body)
   .then(results => {
@@ -29,6 +28,7 @@ const executePgQuery = (query) => {
       client.end();
       return results;
     })
+    
 }
 
 module.exports = { 

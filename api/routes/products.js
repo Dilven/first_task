@@ -14,7 +14,12 @@ module.exports = function (app) {
 			const query = pgQueryBuilder(req);
       return executePgQuery(query)
         .then((results) => {
-          return res.status(200).send({products: results.rows});
+					const { rows, rowCount } = results;
+					const data = {
+						products: rows,
+						total: rowCount
+					}
+          return res.status(200).send(data);
 				})
 					
     } else {
