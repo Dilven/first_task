@@ -3,13 +3,13 @@
 .main-content {
   background-color: #eeeeee;
   padding: 10px;
+  box-sizing: border-box;
   width: 100%;
-  height: 100%;
-  margin-top: $mainBarHeight
+  min-height: calc(100% - #{$mainBarHeight});
+  margin-top: $mainBarHeight;
 }
 
 .app {
-  overflow: hidden;
   position: relative;
   display: flex;
   width: 100%;

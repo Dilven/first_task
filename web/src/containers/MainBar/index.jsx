@@ -22,7 +22,7 @@ class MainBar extends Component {
         <Toolbar>
         <IconButton
             color="inherit"
-            style={{ display: 'none' }}
+            style={{ display: '' }}
             aria-label="open drawer"
             onClick={toggleMenu.bind(this, true)}
             className='hamburger-button'

@@ -12,10 +12,12 @@
 
 .site-title {
     text-transform: capitalize;
+    min-width: 160px;
 }
 
 @media #{$medium} {
     .main-bar {
         margin-left: 0px;
+        width: 100%;
     }
 }
