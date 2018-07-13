@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "db:init": "node dataBaseInit.js",
+    "es:init": "node esBaseInit.js",
+    "pg:init": "node pgBaseInit.js",
     "pg": "node server.js PG",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

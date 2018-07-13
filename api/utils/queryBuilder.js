@@ -29,7 +29,7 @@ const esQueryBuilder = (req) => {
     
   if (category) {
   query.bool.filter.push(
-    { term : { "categoryName" : category }}
+    { term : { "category_name" : category }}
   );
   }
   
