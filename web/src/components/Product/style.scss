@@ -1,14 +1,15 @@
 .product-image {
-  max-height: 525px;
-  padding-top: '56.25%';
+  max-height: 280px;
+  max-width: 100%; 
 }
 
 .list_item {
   margin-top: 50px;
-  max-width: 350px;
+  max-width: 200px;
 
   &_name {
-    height: 64px;
+    height: 32px;
+    font-size: 12px;
   }
 }
 

@@ -17,6 +17,7 @@ const Pagination = ({ page, onChangePage,changeRowsPerPage, productsPerPage, tot
       nextIconButtonProps={{
         'aria-label': 'Next Page',
       }}
+      style={{display: 'flex', }}
       onChangePage={onChangePage}
       onChangeRowsPerPage={changeRowsPerPage}
     />

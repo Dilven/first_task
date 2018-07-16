@@ -26,8 +26,7 @@ const esQueryBuilder = (req) => {
       filter: []
     }
     };
-    console.log(category)
-  if (category) {
+  if(category) {
   query.bool.filter.push(
     { term : { "category_name" : category }}
   );

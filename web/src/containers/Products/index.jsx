@@ -35,16 +35,17 @@ class Products extends Component {
 		const filtr = {
 			categoryName
 		}
-		console.log('fasfda')
 		this.props.getProducts(filtr);
 	};
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.match.params.category !== this.props.match.params.category) {
 			const categoryName = this.props.match.params.category;
-			this.setState({ categoryName })
+			const { productsPerPage } = this.state;
+			this.setState({ categoryName, page: 0, searchPhrase: "" })
 			const filtr = {
-				categoryName
+				categoryName,
+				productsPerPage
 			}
 			this.props.getProducts(filtr);
 		};

@@ -8,22 +8,23 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
-
 import './style.css'
-import productImage from './t-shirt.jpeg'
 
 const Product = ({ product }) => {
+  console.log(product.image)
   return (
     <li className="list_item">
       <Card>
         <img
           className="product-image"
-          src={productImage}
+          src={product.image}
+          alt="product"
         />
         <CardContent>
-          <Typography gutterBottom variant="headline" className="list_item_name" component="h2">
+          <h2 className="list_item_name">
             {product.name}
-          </Typography>
+          </h2>
+          <hr/>
           <Typography component="p">
             { product.desc ? product.desc : <span>Description</span> }
           </Typography>
