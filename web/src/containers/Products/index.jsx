@@ -7,6 +7,7 @@ import CategoryNotFound from '../../components/CategoryNotFound';
 import FreeTextSearch from '../../components/FreeTextSearch';
 import SimpleSelect from '../../components/SimpleSelect';
 import * as productsAction from '../../actions/products';
+import debounce from 'lodash/debounce'
 
 class Products extends Component {
 
@@ -34,6 +35,7 @@ class Products extends Component {
 		const filtr = {
 			categoryName
 		}
+		console.log('fasfda')
 		this.props.getProducts(filtr);
 	};
 
@@ -48,23 +50,25 @@ class Products extends Component {
 		};
 	};
 
-	handlerChangeSort = event => {
+	handleChangeSort = event => {
 		this.setState({ [event.target.name]: event.target.value });
 	}
 
-	handlerChangeValue = (name, event) => {
-		const { categoryName, productsPerPage } = this.state
+	handleChangeFilterText = (name, event) => {
 		const value = event.currentTarget.value;
-		this.setState({ page: 0})
+		this.setState({ [name]: value }, this.handleSearch())
+	};
+
+	handleSearch = debounce(() => {
+		const { categoryName, productsPerPage, searchPhrase, page } = this.state
 		const filtr = {
 			categoryName,
 			productsPerPage,
-			page: 0,
-			searchPhrase: value
+			page,
+			searchPhrase
 		}
-		
-		this.setState({ [name]: value }, this.props.getProducts(filtr))
-	};
+    this.props.getProducts(filtr);
+  }, 250);
 
 	handleChangePage = (event, page) => {
 		const { categoryName, searchPhrase, productsPerPage } = this.state
@@ -102,13 +106,13 @@ class Products extends Component {
 			<Fragment>
 				<FreeTextSearch 
 					value={this.state.searchPhrase} 
-					onChange={this.handlerChangeValue} 
+					onChange={this.handleChangeFilterText} 
 					name="searchPhrase" 
 				/>
 				<SimpleSelect 
 					data={this.state.sortOrder}
 					value={this.state.sort}
-					onChange={this.handlerChangeSort}
+					onChange={this.handleChangeSort}
 					name="sort"
 				/>
 				{redirect ? (

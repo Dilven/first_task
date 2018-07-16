@@ -1,22 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
+
+import './style.css'
+import productImage from './t-shirt.jpeg'
+
 const Product = ({ product }) => {
   return (
-    <li className="list__item">
-      <span>Product name: {product.name}</span><br/>
-      <span>Price: {product.price}</span>
-      <IconButton color="primary" aria-label="Add to shopping cart">
-        <AddShoppingCartIcon />
-      </IconButton>
+    <li className="list_item">
+      <Card>
+        <img
+          className="product-image"
+          src={productImage}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="headline" className="list_item_name" component="h2">
+            {product.name}
+          </Typography>
+          <Typography component="p">
+            { product.desc ? product.desc : <span>Description</span> }
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary">
+            Share
+          </Button>
+          <IconButton color="primary" aria-label="Add to shopping cart">
+            <AddShoppingCartIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
     </li>
   );
-};
+}
 
 Product.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-export default Product
+export default Product;

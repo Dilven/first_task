@@ -30,11 +30,11 @@ export default class Navigation extends Component {
     };
   };
 
-  handlerToggleMenu = (isOpen) => {
+  handleToggleMenu = (isOpen) => {
       this.setState({ isOpen });
   };
 
-  handlerShowCategories = () => {
+  handleShowCategories = () => {
       this.setState(state => ({ moreProducts: !state.moreProducts }));
   };
 
@@ -42,11 +42,11 @@ export default class Navigation extends Component {
     return (
       <Fragment>
         <MainBar 
-          toggleMenu={this.handlerToggleMenu}
+          toggleMenu={this.handleToggleMenu}
         />
         <MainMenu 
-          toggleMenu={this.handlerToggleMenu}
-          showCategories={this.handlerShowCategories}
+          toggleMenu={this.handleToggleMenu}
+          showCategories={this.handleShowCategories}
           categories={this.state.categories}
           moreProducts={this.state.moreProducts}
           isOpen={this.state.isOpen}
