@@ -62,12 +62,15 @@ const pgQueryBuilder = (req) => {
   let countValues = 1;
   sql += 'SELECT * FROM products';
 
-  // if (phrase) {
-  //   sql += ` name LIKE '${phrase}' `;
-  // }
+  if (phrase) {
+    const value = `%${phrase}%`
+    sql += ` WHERE name ILIKE $${countValues}`;
+    values.push(value)
+    countValues++
+  }
 
   if(category) {
-    sql += ` WHERE category_name= $${countValues}`
+    sql += ` category_name= $${countValues}`
     values.push(category)
     countValues++
   }
