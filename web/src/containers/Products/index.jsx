@@ -53,12 +53,12 @@ class Products extends Component {
 	};
 
 	handleChangeSort = event => {
-		const { categoryName, productsPerPage, searchPhrase, page } = this.state
+		const { categoryName, productsPerPage, } = this.state
 		const filtr = {
 			categoryName,
 			productsPerPage,
-			page,
-			searchPhrase,
+			page: 0,
+			searchPhrase: "",
 			sort: event.target.value
 		}
 		this.setState({ [event.target.name]: event.target.value });

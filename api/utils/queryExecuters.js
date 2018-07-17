@@ -22,7 +22,7 @@ const executePgQuery = (query) => {
 
   return client.connect()
     .then(() => {
-      return client.query(query);
+      return client.query(query.sql, query.values);
     })
     .then((results) => {
       client.end();

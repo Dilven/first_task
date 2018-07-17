@@ -3,7 +3,7 @@ const { executeEsQuery, executePgQuery } = require('../utils/queryExecuters');
 
 module.exports = function (app) {
 	app.get('/products', (req, res) => {
-		// localhost:4000/products?page=0&phrase=Book&category=books&filter[type]=book
+		// localhost:4000/products?page=0&phrase=Book&category=books&sort[type]=asc
 		if(process.env.DB_TYPE === "ES") {
 			const query = esQueryBuilder(req);
 			return executeEsQuery(query)

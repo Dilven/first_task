@@ -1,18 +1,13 @@
-var qs = require('qs');
-var assert = require('assert');
-
-
 const esQueryBuilder = (req) => {
+  // /products?phrase=&page=&size=&category=&sort[name]=desc
   let { 
     phrase, 
     page = 0,
     size = 5,
     category,
-    sort: sortFromQuery = {}
+    sort: {}
   } = req.query;
 
-  var obj = qs.parse(sortFromQuery)
-  console.log(obj)
   const query = phrase ? {
     bool : { 
       must : {
@@ -32,6 +27,8 @@ const esQueryBuilder = (req) => {
       filter: []
     }
     };
+
+  
   if(category) {
   query.bool.filter.push(
     { term : { "category_name" : category }}
@@ -40,7 +37,6 @@ const esQueryBuilder = (req) => {
 
   page = parseInt(page);
   const from = !page ? 0 : (page === 0 ? 0 : size * page);
-  const sort = obj
   const body = {
     sort,
     query,
@@ -52,40 +48,54 @@ const esQueryBuilder = (req) => {
 }
 
 const pgQueryBuilder = (req) => {
-  // /products?phrase=&page=&
   let { 
     phrase, 
     page = 0,
     size = 5 ,
     category,
-    sort: sortFromQuery = {}
+    sort
   } = req.query;
-  // console.log(req.query)
 
-
+  
   let sql = '';
-
+  const values = [];
+  let countValues = 1;
   sql += 'SELECT * FROM products';
 
   // if (phrase) {
   //   sql += ` name LIKE '${phrase}' `;
   // }
 
-  // if (filter && filter.category) {
-  //   sql += ` categoryId=${filter.category} `;
-  // }
-
-  if (page) {
-    sql += ` OFFSET ${size * page} `;
+  if(category) {
+    sql += ` WHERE category_name= $${countValues}`
+    values.push(category)
+    countValues++
+  }
+  if(sort) {
+    const sortname = Object.keys(sort)
+    const type = sortname[0]
+    const order = sort[sortname[0]].toUpperCase()
+    sql += ` ORDER BY ${type} ${order}`
   }
 
-  if (size) {
-    sql += ` LIMIT ${size}`;
+  if(page) {
+    sql += ` OFFSET $${countValues}`;
+    values.push(size * page)
+    countValues++
   }
 
-  return sql;
+  if(size) {
+    sql += ` LIMIT $${countValues}`;
+    values.push(size)
+    countValues++
+  }
+  
+  console.log(sql, values)
+  return {
+    sql,
+    values
+  }
 }
-
 
 module.exports = {
   esQueryBuilder,

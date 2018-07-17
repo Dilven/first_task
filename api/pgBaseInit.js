@@ -21,7 +21,7 @@ const addProducts = item => {
   }
 
   let query = '';
-  query = `INSERT INTO products (name, category_name, price) VALUES($1, $2, $3)`
+  query = `INSERT INTO products (name, image, category_name, price) VALUES($1, $2, $3, $4)`
   return client.query(query, values);
 }
 

@@ -24,6 +24,7 @@ const Product = ({ product }) => {
             {product.name}
           </h2>
           <hr/>
+          <h3>{product.price}</h3>
           <Typography component="p">
             { product.desc ? product.desc : <span>Description</span> }
           </Typography>
