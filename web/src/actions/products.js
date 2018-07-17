@@ -28,10 +28,10 @@ export function getProductsError(error) {
   };
 };
 
-export function getProducts({ categoryName = "", page = 0, searchPhrase = "", productsPerPage = 5 }) {
+export function getProducts({ sort = "[name]=asc", categoryName = "", page = 0, searchPhrase = "", productsPerPage = 5 }) {
   return (dispatch) => {
     dispatch(getProductsStart());
-    fetch(`http://localhost:7000/products?page=${page}&size=${productsPerPage}&phrase=${searchPhrase}&category=${categoryName}`)
+    fetch(`http://localhost:7000/products?page=${page}&size=${productsPerPage}&phrase=${searchPhrase}&category=${categoryName}&sort${sort}`)
 			.then(response => response.json())
       .then(data => {
         dispatch(getProductsSucccess(data));

@@ -1,3 +1,7 @@
+var qs = require('qs');
+var assert = require('assert');
+
+
 const esQueryBuilder = (req) => {
   let { 
     phrase, 
@@ -7,6 +11,8 @@ const esQueryBuilder = (req) => {
     sort: sortFromQuery = {}
   } = req.query;
 
+  var obj = qs.parse(sortFromQuery)
+  console.log(obj)
   const query = phrase ? {
     bool : { 
       must : {
@@ -31,10 +37,10 @@ const esQueryBuilder = (req) => {
     { term : { "category_name" : category }}
   );
   }
-  
+
   page = parseInt(page);
   const from = !page ? 0 : (page === 0 ? 0 : size * page);
-  const sort = { "name": { "order": "asc" }}
+  const sort = obj
   const body = {
     sort,
     query,

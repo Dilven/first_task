@@ -11,7 +11,6 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import './style.css'
 
 const Product = ({ product }) => {
-  console.log(product.image)
   return (
     <li className="list_item">
       <Card>

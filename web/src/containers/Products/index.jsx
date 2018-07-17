@@ -19,13 +19,13 @@ class Products extends Component {
 			searchPhrase: "",
 			page: 0,
 			productsPerPage: 5,
-			sortOrder: [ 
-				{ name:'ascending price', value: 'asc:price'},
-				{ name:'descending price', value: 'desc:price'},
-				{ name:'ascending name', value: 'asc:name'},
-				{ name:'descending name', value: 'desc:name'}
+			sortOrder: [
+				{ name:'ascending price', value: '[price]=asc'},
+				{ name:'descending price', value: '[price]=desc'},
+				{ name:'ascending name', value: '[name]=asc'},
+				{ name:'descending name', value: '[name]=desc'}
 			],
-			sort: ''
+			sort: '[name]=asc'
 		};
 	};
 
@@ -41,18 +41,28 @@ class Products extends Component {
 	componentDidUpdate(prevProps) {
 		if (prevProps.match.params.category !== this.props.match.params.category) {
 			const categoryName = this.props.match.params.category;
-			const { productsPerPage } = this.state;
+			const { productsPerPage, sort } = this.state;
 			this.setState({ categoryName, page: 0, searchPhrase: "" })
 			const filtr = {
 				categoryName,
-				productsPerPage
+				productsPerPage,
+				sort
 			}
 			this.props.getProducts(filtr);
 		};
 	};
 
 	handleChangeSort = event => {
+		const { categoryName, productsPerPage, searchPhrase, page } = this.state
+		const filtr = {
+			categoryName,
+			productsPerPage,
+			page,
+			searchPhrase,
+			sort: event.target.value
+		}
 		this.setState({ [event.target.name]: event.target.value });
+		this.props.getProducts(filtr);
 	}
 
 	handleChangeFilterText = (name, event) => {
@@ -61,36 +71,39 @@ class Products extends Component {
 	};
 
 	handleSearch = debounce(() => {
-		const { categoryName, productsPerPage, searchPhrase, page } = this.state
+		const { sort, categoryName, productsPerPage, searchPhrase, page } = this.state
 		const filtr = {
 			categoryName,
 			productsPerPage,
 			page,
-			searchPhrase
+			searchPhrase,
+			sort
 		}
     this.props.getProducts(filtr);
   }, 250);
 
 	handleChangePage = (event, page) => {
-		const { categoryName, searchPhrase, productsPerPage } = this.state
+		const { categoryName, searchPhrase, productsPerPage, sort } = this.state
 		this.setState({ page });
 		const filtr = {
 			categoryName,
 			page,
 			searchPhrase,
-			productsPerPage
+			productsPerPage,
+			sort
 		}
 		this.props.getProducts(filtr)
 	}
 	handleChangeRowsPerPage = event => {
 		const value = event.target.value;
-		const {categoryName, page, searchPhrase} = this.state;
+		const {categoryName, page, searchPhrase, sort} = this.state;
 		this.setState({productsPerPage: value});
 		const filtr = {
 			categoryName,
 			page,
 			searchPhrase,
-			productsPerPage: value
+			productsPerPage: value,
+			sort
 		}
 		this.props.getProducts(filtr)
   };
