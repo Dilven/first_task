@@ -11,6 +11,16 @@ const client = new Client({
 })
 client.connect()
 
+const createTable = () => {
+  return client.query('CREATE TABLE products (id SERIAL PRIMARY KEY, name character(255), category_name character(255), price numeric, image text)')
+    .then(() => {
+      return client.query('CREATE TABLE categories (id SERIAL PRIMARY KEY, name character(255))')
+    })
+    .then(() => {
+      console.log('success');
+    })
+}
+
 const addProducts = item => {
   
   const values = [];
@@ -38,9 +48,12 @@ const addCategories = item => {
   query = `INSERT INTO categories (name) VALUES($1)`
   return client.query(query, values);
 }
-
-Promise.map(productsMock, addProducts)
-.then(() => Promise.map(categoriesMock, addCategories))
-.then(() => {
-  console.log('success')
+return createTable()
+.then(()=> {
+  Promise.map(productsMock, addProducts)
+  .then(() => Promise.map(categoriesMock, addCategories))
+  .then(() => {
+    client.end()
+    console.log('success')
+  })
 })

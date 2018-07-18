@@ -29,7 +29,9 @@ const executePgQuery = (query) => {
     })
   const total = products
     .then(() => {
-      const sql = query.category ? 'SELECT count(*) FROM products WHERE category_name=$1' : 'SELECT count(*) FROM products'
+      const sql = query.category ? 
+        'SELECT count(*) FROM products WHERE category_name=$1' 
+        : 'SELECT count(*) FROM products';
       if(query.category) {
         return client.query(sql, [query.category]);
       }
@@ -41,6 +43,7 @@ const executePgQuery = (query) => {
 
   return Promise.all([products, total])
     .then((results) => {
+      client.end()
       return results;
     })
     

@@ -96,7 +96,7 @@ class Products extends Component {
 	}
 	handleChangeRowsPerPage = event => {
 		const value = event.target.value;
-		const {categoryName, page, searchPhrase, sort} = this.state;
+		const {categoryName, searchPhrase, sort} = this.state;
 		this.setState({productsPerPage: value, page: 0});
 		const filtr = {
 			categoryName,
