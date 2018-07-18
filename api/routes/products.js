@@ -13,13 +13,16 @@ module.exports = function (app) {
 		} else if (process.env.DB_TYPE === 'PG') {
 			const query = pgQueryBuilder(req);
       return executePgQuery(query)
-        .then((results) => {
-					const { rows, rowCount } = results;
-					const data = {
-						products: rows,
-						total: rowCount
+        .then((data) => {
+					const products = data[0].rows;
+					const numberProductsToDisplay = data[0].rowCount;
+					const total = data[1].rows[0].count
+					const results = {
+						products,
+						total,
+						numberProductsToDisplay
 					}
-          return res.status(200).send(data);
+					return res.status(200).send(results);
 				})
 					
     } else {

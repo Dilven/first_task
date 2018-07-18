@@ -5,7 +5,7 @@ const esQueryBuilder = (req) => {
     page = 0,
     size = 5,
     category,
-    sort: {}
+    sort = {}
   } = req.query;
 
   const query = phrase ? {
@@ -70,7 +70,7 @@ const pgQueryBuilder = (req) => {
   }
 
   if(category) {
-    sql += ` category_name= $${countValues}`
+    sql += phrase ? ` AND category_name = $${countValues}` : ` WHERE category_name = $${countValues}`
     values.push(category)
     countValues++
   }
@@ -93,10 +93,10 @@ const pgQueryBuilder = (req) => {
     countValues++
   }
   
-  console.log(sql, values)
   return {
     sql,
-    values
+    values,
+    category
   }
 }
 

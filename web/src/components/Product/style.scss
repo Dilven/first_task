@@ -3,11 +3,11 @@
   max-width: 100%; 
 }
 
-.list_item {
-  margin-top: 50px;
+.list__item {
+  margin: 25px;
   max-width: 200px;
 
-  &_name {
+  &__name {
     height: 32px;
     font-size: 12px;
   }

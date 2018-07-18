@@ -12,7 +12,7 @@ import './style.css'
 
 const Product = ({ product }) => {
   return (
-    <li className="list_item">
+    <li className="list__item">
       <Card>
         <img
           className="product-image"

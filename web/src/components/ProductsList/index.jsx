@@ -17,7 +17,7 @@ const ProductsList = ({ products, took, totalProducts, productsPerPage, isLoadin
             <ul className="list">
               {products.map(product => <Product product={product} key={product.id}/>)}
             </ul>
-            <span className="list__search-statistics"> Found: {totalProducts} results in {took}sec </span>
+            <span className="list__search-statistics"> Found: {totalProducts} results{took ? <span> in {took}sec </span> : '' } </span>
             <Pagination 
               page={page}
               onChangePage={handleChangePage}
