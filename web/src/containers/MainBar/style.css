@@ -5,6 +5,10 @@
   margin-left: 360px;
   width: calc(100% - 360px);
   height: 65px; }
+  .main-bar__toolbar {
+    display: flex; }
+  .main-bar__btn {
+    justify-self: flex-end; }
 
 .site-title {
   text-transform: capitalize;

@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: dilven
+      POSTGRES_DB: shop
+
+  els:
+    image: elasticsearch:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  api:
+    build: api
+    ports:
+      - "7000:7000"
+    restart: always
+    links:
+      - els
+  web:
+    build: web
+    ports:
+      - "3000:3000"

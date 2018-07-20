@@ -7,7 +7,16 @@
     top: 0px;
     margin-left: $menuWidth;
     width: calc(100% - #{$menuWidth});
-    height: $mainBarHeight
+    height: $mainBarHeight;
+
+
+    &__toolbar {
+        display: flex;
+    }
+
+    &__btn {
+        justify-self: flex-end;
+    }
 }
 
 .site-title {

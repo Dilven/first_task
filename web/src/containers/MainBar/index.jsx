@@ -3,6 +3,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
+
 
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
@@ -19,7 +21,7 @@ class MainBar extends Component {
     
     return (
       <header className="main-bar">
-        <Toolbar>
+        <Toolbar className="main-bar__toolbar">
         <IconButton
             color="inherit"
             style={{ display: '' }}
@@ -32,6 +34,9 @@ class MainBar extends Component {
         <Typography variant="title" color="inherit" noWrap className="site-title">
             {title}
         </Typography>
+        <Button className="main-bar__btn" variant="contained" size="medium" color="primary">
+          Login
+        </Button>
         </Toolbar>
       </header>
     )

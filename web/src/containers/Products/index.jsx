@@ -160,7 +160,7 @@ Products.propTypes = {
 const mapStateToProps = (state) => {
 	return {
 		products: state.products.products,
-		totalProducts: state.products.totalProducts,
+		totalProducts: parseInt(state.products.totalProducts, 10),
 		took: state.products.took,
 		isLoading: state.products.isLoading,
 		error: state.products.isError,
