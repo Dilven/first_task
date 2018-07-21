@@ -2,6 +2,8 @@
 
 npm install
 
-while ! curl 127.0.0.1:9200; do sleep 1; done;
+while ! curl els:9200; do sleep 1; done;
 
+npm run es:init
+npm run pg:init
 npm start
