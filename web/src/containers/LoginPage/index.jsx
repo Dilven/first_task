@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LoginForm from '../../components/LoginForm'
+import PropTypes from 'prop-types';
 
 export default class LoginPage extends Component {
 
@@ -26,7 +27,6 @@ export default class LoginPage extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <LoginForm 

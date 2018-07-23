@@ -2,10 +2,11 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import PropTypes from 'prop-types';
 
 
-
-export default ({ firstName, nick, password, onChange, onSubmit }) => {
+const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading }) => {
   return (
     <Card className="small-card container">
       <form onSubmit={onSubmit} className="form">
@@ -35,6 +36,18 @@ export default ({ firstName, nick, password, onChange, onSubmit }) => {
           Sign up
         </Button>
       </form>
+    { isLoading && <LinearProgress /> }
     </Card>
   )
 }
+
+RegisterForm.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  nick: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+}
+
+export default RegisterForm;

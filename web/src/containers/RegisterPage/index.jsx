@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import RegisterForm from '../../components/RegisterForm'
+import React, { Component } from 'react';
+import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
-import * as registrationAction from '../../actions/registration'
+import * as registrationAction from '../../actions/registration';
+import PropTypes from 'prop-types';
+import ErrorSnackBar from '../../components/ErrorSnackbar';
 
 class RegisterPage extends Component {
 
@@ -39,15 +41,21 @@ class RegisterPage extends Component {
           password={this.state.password}
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
+          isLoading={this.props.isLoading}
         />
+        <ErrorSnackBar />
       </div>
     )
   }
 }
 
+RegisterPage.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
+}
 const mapStateToProps = (state) => {
   return {
-    register: state.register,
+    ...state.register,
   }
 }
 

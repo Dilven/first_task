@@ -1,6 +1,4 @@
 import * as constants from '../constants';
-import { getProductsStart } from './products';
-
 
 export function createUserStart () {
   return {
@@ -23,6 +21,6 @@ export function createUserError () {
 export function createUser (nick, firstName, password) {
   console.log(nick, firstName, password)
   return (dispatch) => {
-    dispatch(getProductsStart());
+    dispatch(createUserStart());
   };
 }
