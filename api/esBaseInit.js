@@ -1,4 +1,4 @@
-const { indexData, initMapping } = require('./esService');
+const { indexData } = require('./esService');
 const productsMock = require('./mock/products');
 const categoriesMock = require('./mock/categories');
 const Promise = require('bluebird');

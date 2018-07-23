@@ -1,4 +1,4 @@
-const { indexData, initMapping } = require('./esService');
+const { initMapping } = require('./esService');
 
 initMapping('categories', 'entries', {
   properties: {

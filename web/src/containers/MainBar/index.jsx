@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-
+import { NavLink } from "react-router-dom";
 
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
@@ -34,9 +34,16 @@ class MainBar extends Component {
         <Typography variant="title" color="inherit" noWrap className="site-title">
             {title}
         </Typography>
-        <Button className="main-bar__btn" variant="contained" size="medium" color="primary">
-          Login
-        </Button>
+        <NavLink exact to="/login" className="main-bar__btn">
+          <Button  variant="contained" size="medium" color="primary">
+            Login
+          </Button>
+        </NavLink>
+        <NavLink exact to="/signup" className="main-bar__btn">
+          <Button  variant="contained" size="medium" color="primary">
+            Sign up
+          </Button>
+        </NavLink>
         </Toolbar>
       </header>
     )

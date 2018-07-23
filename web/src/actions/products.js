@@ -7,7 +7,7 @@ export function getProductsStart() {
   };
 };
 
-export function getProductsSucccess({ products, total, took, numberProductsToDisplay}) {
+export function getProductsSuccess({ products, total, took, numberProductsToDisplay}) {
   return {
     type: constants.PRODUCTS_GET_SUCCESS,
     payload: {
@@ -34,7 +34,7 @@ export function getProducts({ sort = "[name]=asc", categoryName = "", page = 0, 
     fetch(`http://localhost:7000/products?page=${page}&size=${productsPerPage}&phrase=${searchPhrase}&category=${categoryName}&sort${sort}`)
 			.then(response => response.json())
       .then(data => {
-        dispatch(getProductsSucccess(data));
+        dispatch(getProductsSuccess(data));
       })
       .catch(error => dispatch(getProductsError(error)))
   };

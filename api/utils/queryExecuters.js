@@ -1,5 +1,5 @@
 const { search } = require('../esService');
-const { Client } = require('pg')
+const { client } = require('../pgService')
 
 const executeEsQuery = (body) => {
   return search('products', body)
@@ -14,11 +14,7 @@ const executeEsQuery = (body) => {
 
 const executePgQuery = (query) => {
   
-  const connectionString = 'postgresql://dilven:password@localhost/shop';
 
-  const client = new Client({
-    connectionString: connectionString,
-  })
 
   const products = client.connect()
     .then(() => {

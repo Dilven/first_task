@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const productsMock = require('./mock/products');
 const categoriesMock = require('./mock/categories');
 
-const connectionString = 'postgresql://dilven:password@localhost/shop';
+const connectionString = 'postgresql://dilven:password@localhost:5432/shop';
 
 const client = new Client({
   connectionString: connectionString,
