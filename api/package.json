@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "es:init": "node esBaseInit.js",
+    "es:map": "node esMapping.js",
     "pg:init": "node pgBaseInit.js",
     "pg": "node server.js PG",
     "test": "echo \"Error: no test specified\" && exit 1"

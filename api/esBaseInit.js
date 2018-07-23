@@ -1,37 +1,11 @@
 const { indexData, initMapping } = require('./esService');
 const productsMock = require('./mock/products');
 const categoriesMock = require('./mock/categories');
+const Promise = require('bluebird');
 
-productsMock.map(product => {
+Promise.map(productsMock, (product) => {
   indexData('products', 'entries', product.id, product);
-});
-
-categoriesMock.map(category => {
+})
+.then(Promise.map(categoriesMock, (category) => {
   indexData('categories', 'entries', category.id, category);
-});
-
-initMapping('categories', 'entries', {
-  properties: {
-    name: { 
-      'type': "text",
-      "fielddata": true
-    },
-  }
-});
-
-initMapping('products', 'entries', {
-  properties: {
-    name: { 
-      'type': "text",
-      "fielddata": true
-      
-    },
-    categoryName: { 
-      'type': "text",
-      "fielddata": true
-    },
-    price: {
-      'type': 'float'
-    }
-  }
-});
+}))
