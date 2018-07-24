@@ -1,5 +1,5 @@
 const { search } = require('../esService');
-const { client } = require('../pgService')
+const { pool } = require('../pgService')
 
 const executeEsQuery = (body) => {
   return search('products', body)
@@ -13,13 +13,7 @@ const executeEsQuery = (body) => {
 };
 
 const executePgQuery = (query) => {
-  
-
-
-  const products = client.connect()
-    .then(() => {
-      return client.query(query.sql, query.values);
-    })
+  const products = pool.query(query.sql, query.values)
     .then((results) => {
       return results;
     })
@@ -29,20 +23,19 @@ const executePgQuery = (query) => {
         'SELECT count(*) FROM products WHERE category_name=$1' 
         : 'SELECT count(*) FROM products';
       if(query.category) {
-        return client.query(sql, [query.category]);
+        return pool.query(sql, [query.category]);
       }
-      return client.query(sql);
+      return pool.query(sql);
     })
     .then(results => {
       return results
     })
 
+  
   return Promise.all([products, total])
     .then((results) => {
-      client.end()
       return results;
     })
-    
 }
 
 module.exports = { 

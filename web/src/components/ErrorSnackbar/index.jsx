@@ -5,10 +5,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 
 const ErrorSnackBar = ({ isError }) => {
-  console.log(isError)
   return (
     <Snackbar
-      open={true}
+      open={isError}
       message="This is an error message!"
     />
   );

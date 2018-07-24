@@ -43,7 +43,9 @@ class RegisterPage extends Component {
           onSubmit={this.handleSubmit}
           isLoading={this.props.isLoading}
         />
-        <ErrorSnackBar />
+        <ErrorSnackBar
+          isError={this.state.isError}
+        />
       </div>
     )
   }
