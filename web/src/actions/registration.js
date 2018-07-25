@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import fetch from 'isomorphic-fetch';
 
 export function createUserStart () {
   return {
@@ -19,8 +20,18 @@ export function createUserError () {
 };
 
 export function createUser (nick, firstName, password) {
-  console.log(nick, firstName, password)
+  const body = {
+    firstName,
+    password,
+    nick
+  }
+  console.log(body)
   return (dispatch) => {
     dispatch(createUserStart());
-  };
+    fetch("http://localhost:7000/users", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify(body)
+    })
+  }
 }

@@ -11,6 +11,9 @@ const createTable = () => {
       return pool.query("CREATE TABLE categories (id SERIAL PRIMARY KEY, name character(255))")
     })
     .then(() => {
+      return pool.query("CREATE TABLE users (id SERIAL PRIMARY KEY, first_name character(255), nick character(255), password varchar)")
+    })
+    .then(() => {
       console.log('success');
     })
 }

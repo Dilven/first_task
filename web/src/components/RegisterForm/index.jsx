@@ -16,6 +16,7 @@ const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading
           value={firstName}
           onChange={onChange}
           margin="normal"
+          required
         />
         <TextField
           id="nick"
@@ -23,6 +24,7 @@ const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading
           value={nick}
           onChange={onChange}
           margin="normal"
+          required
         />
         <TextField
           id="password"
@@ -31,6 +33,7 @@ const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading
           value={password}
           onChange={onChange}
           margin="normal"
+          required
         />
         <Button type="submit" className="main-bar__btn" variant="contained" size="medium" color="primary">
           Sign up

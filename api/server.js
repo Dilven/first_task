@@ -15,6 +15,7 @@ app.use(cors());
 app.use('/', router);
 
 require('./routes/products')(app);
+require('./routes/users')(app);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
