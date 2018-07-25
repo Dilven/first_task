@@ -6,7 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import PropTypes from 'prop-types';
 
 
-const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading }) => {
+const RegisterForm = ({ firstName, nick, password, passwordConfirmation, onChange, onSubmit, isLoading }) => {
   return (
     <Card className="small-card container">
       <form onSubmit={onSubmit} className="form">
@@ -31,6 +31,15 @@ const RegisterForm = ({ firstName, nick, password, onChange, onSubmit, isLoading
           label="Password"
           type="password"
           value={password}
+          onChange={onChange}
+          margin="normal"
+          required
+        />
+        <TextField
+          id="passwordConfirmation"
+          label="Password confirmation"
+          type="password"
+          value={passwordConfirmation}
           onChange={onChange}
           margin="normal"
           required

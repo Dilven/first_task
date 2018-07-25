@@ -23,7 +23,8 @@
     "lodash": "^4.17.10",
     "pg": "^7.4.3",
     "qs": "^6.5.2",
-    "save": "^2.3.2"
+    "save": "^2.3.2",
+    "validator": "^10.4.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"

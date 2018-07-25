@@ -4,11 +4,17 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 
 
-const ErrorSnackBar = ({ isError }) => {
+const ErrorSnackBar = ({ isError, errorMessages }) => {
+
+  const renderError = (data) => {
+    return (
+      <span>{data}</span>
+    )
+  }
   return (
     <Snackbar
-      open={isError}
-      message="This is an error message!"
+      open={errorMessages.length > 0}
+      message={errorMessages.map(renderError)}
     />
   );
 };

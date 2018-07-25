@@ -13,6 +13,9 @@ class RegisterPage extends Component {
       firstName: '',
       nick: '',
       password: '',
+      passwordConfirmation: '',
+      errors: [],
+      isLoading: false
     }
   }
 
@@ -26,10 +29,17 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = (event) => {
+
     event.preventDefault();
-    const { nick, password, firstName } = this.state;
-    this.props.createUser(nick, firstName, password);
-  }
+    this.setState({ errors: [], isLoading: true });
+    const { nick, password, firstName, passwordConfirmation } = this.state;
+    
+    this.props.createUser(nick, firstName, password, passwordConfirmation)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({errors: data, isLoading: false})
+      })
+    }
 
   render() {
     return (
@@ -38,12 +48,13 @@ class RegisterPage extends Component {
           firstName={this.state.firstName}
           nick={this.state.nick}
           password={this.state.password}
+          passwordConfirmation={this.state.passwordConfirmation}
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
-          isLoading={this.props.isLoading}
+          isLoading={this.state.isLoading}
         />
         <ErrorSnackBar
-          isError={this.state.isError}
+          errorMessages={this.state.errors}
         />
       </div>
     )
@@ -52,7 +63,8 @@ class RegisterPage extends Component {
 
 RegisterPage.propTypes = {
   isError: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  createUser: PropTypes.func.isRequired
 }
 const mapStateToProps = (state) => {
   return {
@@ -62,7 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createUser: (nick, firstName, password) => dispatch(registrationAction.createUser(nick, firstName, password))
+    createUser: (nick, firstName, password, passwordConfirmation) => dispatch(registrationAction.createUser(nick, firstName, password, passwordConfirmation))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)
