@@ -35,7 +35,7 @@ class Products extends Component {
 		const filtr = {
 			categoryName
 		}
-		this.props.getProducts(filtr);
+		this.props.getProducts(filtr, 0);
 	};
 
 	componentDidUpdate(prevProps) {
@@ -67,7 +67,7 @@ class Products extends Component {
 
 	handleChangeFilterText = (name, event) => {
 		const value = event.currentTarget.value;
-		this.setState({ [name]: value }, this.handleSearch())
+		this.setState({ [name]: value, page: 0 }, this.handleSearch())
 	};
 
 	handleSearch = debounce(() => {

@@ -5,4 +5,6 @@ npm install
 while ! curl els:9200; do sleep 1; done;
 
 npm run pg:init
+npm run es:init
+npm run es:map
 npm run pg

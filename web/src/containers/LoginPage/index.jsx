@@ -9,8 +9,8 @@ export default class LoginPage extends Component {
     this.state = {
       nick: '',
       password: '',
-    }
-  }
+    };
+  };
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -18,13 +18,13 @@ export default class LoginPage extends Component {
 
     this.setState({
       [name]: value
-    })
-  }
+    });
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     console.log('wyslano')
-  }
+  };
 
   render() {
     return (
@@ -36,6 +36,6 @@ export default class LoginPage extends Component {
           onSubmit={this.handleSubmit}
         />
       </div>
-    )
-  }
-}
+    );
+  };
+};

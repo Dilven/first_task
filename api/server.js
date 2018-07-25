@@ -4,8 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-process.env.DB_TYPE = process.argv[2] || "ES";
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
