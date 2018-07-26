@@ -36,7 +36,7 @@ class RegisterPage extends Component {
     this.props.createUser(nick, firstName, password, passwordConfirmation)
       .then(response => response.json())
       .then(data => {
-        if(data.success) {
+        if(data.isSuccess) {
           this.setState({ isLoading: false })
           this.props.history.push("/");
           const type = 'success';
