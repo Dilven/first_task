@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
 import productsReducer from './productsReducer';
-import registrationReducer from './registrationReducer';
-
+import flashMessagesReducer from './flashMessagesReducer'
 
 const rootReducer = combineReducers({
     products: productsReducer,
-    register: registrationReducer
+    flashMessages: flashMessagesReducer
 });
 
 export default rootReducer;

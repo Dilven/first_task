@@ -1,5 +1,6 @@
 const Validator = require('validator');
 const isEmpty = require('lodash/isEmpty')
+const bcrypt = require('bcrypt');
 
 module.exports = function (app) {
   const validateInput = ({ nick, firstName, password, passwordConfirmation }) => {
@@ -31,8 +32,12 @@ module.exports = function (app) {
 	app.post('/users', (req, res) => {
 		// localhost:4000/products?page=0&phrase=Book&category=books&sort[type]=asc
     const { errors, isValid } = validateInput(req.body);
-    if (!isValid) {
-      res.status(400).send(errors);
+    if (isValid) {
+      const { nick, firstName, password, passwordConfirmation } = req.body;
+      const passwordDigest = bcrypt.hashSync(password, 10)
+      res.send({ success: true });
+    } else {
+      res.status(400).send({ isSuccess: false, errors });
     }
 	})
 }

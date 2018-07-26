@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
 import * as registrationAction from '../../actions/registration';
+import * as flashMessagesAction from '../../actions/flashMessages';
 import PropTypes from 'prop-types';
-import ErrorSnackBar from '../../components/ErrorSnackbar';
 
 class RegisterPage extends Component {
 
@@ -14,7 +14,6 @@ class RegisterPage extends Component {
       nick: '',
       password: '',
       passwordConfirmation: '',
-      errors: [],
       isLoading: false
     }
   }
@@ -37,7 +36,18 @@ class RegisterPage extends Component {
     this.props.createUser(nick, firstName, password, passwordConfirmation)
       .then(response => response.json())
       .then(data => {
-        this.setState({errors: data, isLoading: false})
+        if(data.success) {
+          this.setState({ isLoading: false })
+          this.props.history.push("/");
+          const type = 'success';
+          const text = 'You signed up successfully. Welcome!';
+          this.props.displayFlashMessage(type, text)      
+        } else {
+          const type = 'error';
+          const text = data.errors[0];
+          this.props.displayFlashMessage(type, text);
+          this.setState({ isLoading: false })
+        }
       })
     }
 
@@ -53,18 +63,14 @@ class RegisterPage extends Component {
           onSubmit={this.handleSubmit}
           isLoading={this.state.isLoading}
         />
-        <ErrorSnackBar
-          errorMessages={this.state.errors}
-        />
       </div>
     )
   }
 }
 
 RegisterPage.propTypes = {
-  isError: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  createUser: PropTypes.func.isRequired
+  createUser: PropTypes.func.isRequired,
+  displayFlashMessage: PropTypes.func.isRequired
 }
 const mapStateToProps = (state) => {
   return {
@@ -74,7 +80,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createUser: (nick, firstName, password, passwordConfirmation) => dispatch(registrationAction.createUser(nick, firstName, password, passwordConfirmation))
+    createUser: (nick, firstName, password, passwordConfirmation) => dispatch(registrationAction.createUser(nick, firstName, password, passwordConfirmation)),
+    displayFlashMessage: (type, text) => dispatch(flashMessagesAction.displayFlashMessage(type, text))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)

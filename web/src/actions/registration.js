@@ -1,4 +1,3 @@
-import * as constants from '../constants';
 import fetch from 'isomorphic-fetch';
 
 export function createUser (nick, firstName, password, passwordConfirmation) {

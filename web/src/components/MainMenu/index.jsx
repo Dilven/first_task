@@ -48,7 +48,7 @@ const MainMenu = ({ toggleMenu, showCategories, categories, moreProducts, isOpen
 
   return (
     <Fragment>
-      <Hidden mdUp>
+      <Hidden mdUp className="app-menu">
         <Drawer
           variant="temporary"
           anchor="left"
@@ -62,7 +62,7 @@ const MainMenu = ({ toggleMenu, showCategories, categories, moreProducts, isOpen
           {menu}
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
+      <Hidden smDown implementation="css" className="app-menu">
         <Drawer
           variant="permanent"
           open
