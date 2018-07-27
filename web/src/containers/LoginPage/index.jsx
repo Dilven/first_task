@@ -1,14 +1,18 @@
-import React, { Component } from 'react'
-import LoginForm from '../../components/LoginForm'
+import React, { Component } from 'react';
+import LoginForm from '../../components/LoginForm';
+import { connect } from 'react-redux';
+import * as flashMessagesAction from '../../actions/flashMessages';
+import * as authAction from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       nick: '',
       password: '',
+      isLoading: false
     };
   };
 
@@ -23,10 +27,30 @@ export default class LoginPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('wyslano')
+    this.setState({ isLoading: true });
+    const data = { 
+      nick: this.state.nick,
+      password: this.state.password
+    }
+    this.props.login(data)
+      .then(data => {
+        if(data.isSuccess) {
+          this.setState({ isLoading: false })
+          this.props.history.push("/");
+          const type = 'success';
+          const text = 'You signed in successfully. Welcome!';
+          this.props.displayFlashMessage(type, text)
+        } else {
+          const type = 'error';
+          const text = data.errors[0];
+          this.props.displayFlashMessage(type, text);
+          this.setState({ isLoading: false })
+        }
+      })
   };
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <LoginForm 
@@ -39,3 +63,23 @@ export default class LoginPage extends Component {
     );
   };
 };
+
+LoginPage.propTypes = {
+  displayFlashMessage: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  return {
+    
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    displayFlashMessage: (type, text) => dispatch(flashMessagesAction.displayFlashMessage(type, text)),
+    login: (data) => dispatch(authAction.login(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

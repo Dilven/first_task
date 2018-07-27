@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const isEmpty = require('lodash/isEmpty')
 
 const User = require ('../models/user.js');
-const commonValidations = require('../helpers/validations')
+const commonValidations = require('../helpers/validations/registration.js')
 
 function validateInput(data, otherValidations) {
   let { errors } = otherValidations(data);

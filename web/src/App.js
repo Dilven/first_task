@@ -4,10 +4,11 @@ import { Switch } from 'react-router';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
- 
+import jwt from 'jsonwebtoken';
+
 import './App.css';
 import rootReducer from './reducers/index'
-
+import { setCurrentUser } from './actions/auth'
 import HomePage from './containers/HomePage/index';
 import LoginPage from './containers/LoginPage/index';
 import RegisterPage from './containers/RegisterPage/index';
@@ -15,12 +16,21 @@ import Products from './containers/Products/index';
 import NotFound from './components/NotFound';
 import Navigation from './containers/Navigation/index';
 import FlashMessage from './components/FlashMessage';
+import setAuthorizationToken from './utils/setAuthorizationToken';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk)
 ));
+
+if(localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
+}
+
+
+
 
 class App extends Component {
   render() {

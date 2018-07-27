@@ -30,7 +30,7 @@ class RegisterPage extends Component {
   handleSubmit = (event) => {
 
     event.preventDefault();
-    this.setState({ errors: [], isLoading: true });
+    this.setState({ isLoading: true });
     const { nick, password, firstName, passwordConfirmation } = this.state;
     
     this.props.createUser(nick, firstName, password, passwordConfirmation)
@@ -41,7 +41,7 @@ class RegisterPage extends Component {
           this.props.history.push("/");
           const type = 'success';
           const text = 'You signed up successfully. Welcome!';
-          this.props.displayFlashMessage(type, text)      
+          this.props.displayFlashMessage(type, text)     
         } else {
           const type = 'error';
           const text = data.errors[0];

@@ -16,6 +16,7 @@ const LoginForm = ({ nick, password, onChange, onSubmit }) => {
           value={nick}
           onChange={onChange}
           margin="normal"
+          required
         />
         <TextField
           id="password"
@@ -24,6 +25,7 @@ const LoginForm = ({ nick, password, onChange, onSubmit }) => {
           value={password}
           onChange={onChange}
           margin="normal"
+          required
         />
         <Button type="submit" className="main-bar__btn" variant="contained" size="medium" color="primary">
           Login

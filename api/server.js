@@ -16,6 +16,7 @@ app.use('/', router);
 
 require('./routes/products')(app);
 require('./routes/users')(app);
+require('./routes/auth')(app);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
