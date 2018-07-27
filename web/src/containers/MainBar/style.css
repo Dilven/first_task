@@ -8,7 +8,8 @@
   .main-bar__toolbar {
     display: flex; }
   .main-bar__btn {
-    margin: 5px; }
+    margin: 5px;
+    justify-content: flex-end; }
 
 .site-title {
   text-transform: capitalize;
