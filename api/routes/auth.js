@@ -5,7 +5,6 @@ const config = require('../config')
 
 module.exports = function (app) {
     app.post('/auth', (req, res) => {
-        console.log(req.body)
         const { nick, password } = req.body;
         User.query({
             where: { nick: nick }
