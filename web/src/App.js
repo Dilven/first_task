@@ -11,6 +11,7 @@ import rootReducer from './reducers/index'
 import { setCurrentUser } from './actions/auth'
 import HomePage from './containers/HomePage/index';
 import LoginPage from './containers/LoginPage/index';
+import LogoutPage from './containers/LogoutPage/index';
 import RegisterPage from './containers/RegisterPage/index';
 import Products from './containers/Products/index';
 import NotFound from './components/NotFound';
@@ -43,6 +44,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage} />
+                <Route path="/logout" component={LogoutPage} />
                 <Route path="/signup" component={RegisterPage} />
                 <Route exact path="/products" component={Products}/>
                 <Route exact path="/products/:category" component={Products}/>

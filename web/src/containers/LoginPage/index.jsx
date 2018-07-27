@@ -34,6 +34,7 @@ class LoginPage extends Component {
     }
     this.props.login(data)
       .then(data => {
+        console.log(data)
         if(data.isSuccess) {
           this.setState({ isLoading: false })
           this.props.history.push("/");
@@ -47,10 +48,15 @@ class LoginPage extends Component {
           this.setState({ isLoading: false })
         }
       })
+      .catch((data) => {
+        const type = 'error';
+        const text = 'Something wrong'
+        this.props.displayFlashMessage(type, text);
+        this.setState({ isLoading: false })
+      })
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <LoginForm 

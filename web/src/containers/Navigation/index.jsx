@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react'
 import MainMenu from '../../components/MainMenu';
 import MainBar from '../MainBar'
 
-
-
 export default class Navigation extends Component {
   constructor(props) {
     super(props);
